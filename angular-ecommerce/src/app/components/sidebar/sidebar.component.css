@@ -1,0 +1,38 @@
+.sidebar-nav {
+  width: 185px;
+  overflow-y: hidden;
+  position: fixed;
+}
+
+.main-content {
+  margin-left: 13%;
+}
+
+.nav-link:hover {
+  font-weight: bold;
+}
+
+.nav-link {
+  transition: all 0.3s
+}
+
+.link:hover {
+  font-weight: bold;
+}
+
+.link {
+  transition: all 0.3s
+}
+
+i, a {
+  color: black;
+}
+
+span{
+  color: black;
+}
+
+.center {
+  margin: auto;
+  width: 11%;
+}
