@@ -1,21 +1,8 @@
-<table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Units in Stock</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr *ngFor="let product of products" class="align-middle">
-      <td>
-        <img src="{{ product.imageUrl }}" height="50">
-      </td>
-      <td>{{product.name}}</td>
-      <td>{{product.unitPrice | currency: 'USD'}}</td>
-      <td>{{product.unitsInStock}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div *ngFor="let product of products" class="col-md-3 mt-5">
+    <img src="{{product.imageUrl}}" class="img-fluid border" style="width:80%; background-color: rgb(241, 238, 238);">
+    <h2 class="mt-2" style="width: 70%;">{{product.name}}</h2>
+    <p>{{product.unitPrice | currency: 'USD'}}</p>
+    <a href="#" class="btn btn-primary" style="width: 20%;">Add</a>
+  </div>
+</div>
