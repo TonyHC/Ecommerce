@@ -1,0 +1,19 @@
+.nav-link:hover {
+  font-weight: bold;
+}
+
+.nav-link {
+  transition: all 0.3s
+}
+
+.link:hover {
+  font-weight: bold;
+}
+
+.link {
+  transition: all 0.3s
+}
+
+a {
+  color: black;
+}
