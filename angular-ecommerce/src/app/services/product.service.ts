@@ -21,8 +21,10 @@ export class ProductService {
 
   }
 
-  fetchProducts(): Observable<Product[]> {
-    return this.httpClient.get<productResponse>(this.baseUrl).pipe(
+  fetchProducts(categoryId: number): Observable<Product[]> {
+    const searchCategoryUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+
+    return this.httpClient.get<productResponse>(searchCategoryUrl).pipe(
       map((response) => response._embedded.products)
     );
   }
