@@ -31,10 +31,10 @@
                           <i class="fs-4 bi bi-tags"></i> <span class="ms-2 d-none d-sm-inline">Category</span></a>
                       <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                           <li class="w-100">
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
+                              <a routerLink="/category/1" routerLinkActive="active-link" class="nav-link px-0"> <span class="d-none d-sm-inline">Books</span></a>
                           </li>
                           <li>
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                              <a routerLink="/category/2" routerLinkActive="active-link" class="nav-link px-0"> <span class="d-none d-sm-inline">Coffee Mugs</span></a>
                           </li>
                       </ul>
                   </li>
@@ -80,7 +80,7 @@
       </div>
       <div class="col d-flex flex-column min-vh-100 main-content">
           <!--Main Content-->
-          <app-product-list></app-product-list>
+          <router-outlet></router-outlet>
 
           <!--Pagination-->
           <nav aria-label="Page navigation example">

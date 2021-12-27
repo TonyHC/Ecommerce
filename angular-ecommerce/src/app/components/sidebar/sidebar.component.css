@@ -32,6 +32,10 @@ span{
   color: black;
 }
 
+.active-link {
+  font-weight: bold;
+}
+
 .center {
   margin: auto;
   width: 11%;
