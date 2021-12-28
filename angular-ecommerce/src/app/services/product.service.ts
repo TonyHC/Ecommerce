@@ -42,4 +42,12 @@ export class ProductService {
       map(response => response._embedded.productCategory)
     );
   }
+
+  fetchProductCategoryByCategoryId(categoryId: number): Observable<ProductCategory> {
+    const searchProductCategoryUrl = `${this.categoryUrl}/${categoryId}`;
+
+    return this.httpClient.get<ProductCategory>(searchProductCategoryUrl).pipe(
+      map(response => response)
+    )
+  }
 }
