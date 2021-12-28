@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -8,9 +9,12 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products!: Product[];
   currentCategoryId!: number;
+  currentCategoryName!: string;
+
+  productSubscription!: Subscription;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute) {
@@ -35,9 +39,18 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
     }
 
+    this.productService.fetchProductCategoryByCategoryId(this.currentCategoryId).subscribe((responseData) => {
+      responseData ? this.currentCategoryName = responseData.categoryName : this.currentCategoryName = 'Books';
+    });
+
     // Now we get the list of products based on the category id
-    this.productService.fetchProducts(this.currentCategoryId).subscribe((responseData) => {
+    this.productService.fetchProductsByCategoryId(this.currentCategoryId).subscribe((responseData) => {
+      console.log(JSON.stringify(responseData));
       this.products = responseData;
-    })
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
   }
 }

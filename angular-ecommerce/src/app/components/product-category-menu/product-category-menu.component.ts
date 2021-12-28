@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductCategory } from 'src/app/common/product-category';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -7,8 +8,9 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-category-menu.component.html',
   styleUrls: ['./product-category-menu.component.css']
 })
-export class ProductCategoryMenuComponent implements OnInit {
+export class ProductCategoryMenuComponent implements OnInit, OnDestroy {
   productCategories!: ProductCategory[];
+  productSubscription!: Subscription;
 
   constructor(private productService: ProductService) {
 
@@ -19,11 +21,15 @@ export class ProductCategoryMenuComponent implements OnInit {
   }
 
   listProductCategories() {
-    this.productService.fetchProductCategories().subscribe(
+    this.productSubscription = this.productService.fetchProductCategories().subscribe(
       responseData => {
         console.log(JSON.stringify(responseData));
         this.productCategories = responseData
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription.unsubscribe();
   }
 }
