@@ -1,1 +1,7 @@
-<p>product-category-menu works!</p>
+<a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+  <i class="fs-4 bi bi-tags"></i> <span class="ms-2 d-none d-sm-inline">Category</span></a>
+<ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+  <li class="w-100" *ngFor="let productCategory of productCategories">
+      <a routerLink="/category/{{productCategory.id}}" routerLinkActive="active-link" class="nav-link px-0"> <span class="d-none d-sm-inline">{{productCategory.categoryName}}</span></a>
+  </li>
+</ul>
