@@ -1,0 +1,13 @@
+<!--Fix the race condition for product being undefined from browser web dev tools-->
+<div class="d-flex flex-row" *ngIf="product">
+  <img src="{{product.imageUrl}}" class="image-size">
+  <div class="d-flex flex-column product-info">
+    <h3>{{product.name}}</h3>
+    <p><strong>{{product.unitPrice | currency: 'USD'}}</strong></p>
+    <div class="col-sm-8">
+      <hr>
+      <h4>Description</h4>
+      <p>{{product.description}}</p>
+    </div>
+  </div>
+</div>

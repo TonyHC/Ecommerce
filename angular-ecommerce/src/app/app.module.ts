@@ -8,6 +8,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ShortenPipe } from './pipe/shorten.pipe';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
     HeaderComponent,
     SidebarComponent,
     ShortenPipe,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
