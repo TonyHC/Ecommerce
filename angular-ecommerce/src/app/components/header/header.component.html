@@ -9,15 +9,28 @@
       <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item" >
-                  <a class="nav-link" routerLinkActive="active" routerLink="#" style="cursor: pointer;">Category</a>
+                  <a class="nav-link" routerLinkActive="active-link" routerLink="/category" style="cursor: pointer;">Category</a>
               </li>
               <li class="nav-item" >
                   <a class="nav-link" routerLinkActive="active" routerLink="#" style="cursor: pointer;">About</a>
               </li>
           </ul>
 
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 40%;">
-          <button class="btn btn-outline-dark me-auto" type="submit"><i class="bi bi-search"></i></button>
+          <div class="input-group me-auto">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search for products"
+              #searchInput
+              (keyup.enter)="onSearchProducts(searchInput.value)"
+              style="outline-color: transparent; outline-style: none;">
+
+            <button
+              class="btn btn-outline-dark"
+              (click)="onSearchProducts(searchInput.value)">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
 
           <button class="btn me-4" type="button">
             Login

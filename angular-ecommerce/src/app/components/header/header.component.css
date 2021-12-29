@@ -17,3 +17,15 @@
 a {
   color: black;
 }
+
+.input-group {
+  width: 60%;
+}
+
+.input-group:target {
+  border: 1px solid black;
+}
+
+.active-link {
+  font-weight: bold;
+}
