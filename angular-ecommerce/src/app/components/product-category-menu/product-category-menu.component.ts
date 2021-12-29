@@ -8,7 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-category-menu.component.html',
   styleUrls: ['./product-category-menu.component.css']
 })
-export class ProductCategoryMenuComponent implements OnInit, OnDestroy {
+export class ProductCategoryMenuComponent implements OnInit {
   productCategories!: ProductCategory[];
   productSubscription!: Subscription;
 
@@ -27,9 +27,5 @@ export class ProductCategoryMenuComponent implements OnInit, OnDestroy {
         this.productCategories = responseData
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
   }
 }
