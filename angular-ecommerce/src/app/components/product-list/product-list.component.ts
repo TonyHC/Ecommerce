@@ -9,10 +9,12 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit {
   products!: Product[];
   currentCategoryId!: number;
   currentCategoryName!: string;
+  searchMode!: boolean;
+  currentKeyword!: string;
 
   productSubscription!: Subscription;
 
@@ -28,6 +30,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   listProducts() {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+
+    if (this.searchMode) {
+      this.handleSearchProducts();
+    } else {
+      this.handleListProducts();
+    }
+  }
+
+  handleListProducts() {
     // Check if "id" parameter exists
     const hasCategoryId = this.route.snapshot.paramMap.has('id');
 
@@ -50,7 +62,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.productSubscription.unsubscribe();
+  handleSearchProducts() {
+    this.currentKeyword = this.route.snapshot.paramMap.get('keyword')!;
+
+    this.productService.searchProductsByKeyword(this.currentKeyword).subscribe((responseData) => {
+      console.log(JSON.stringify(responseData));
+      this.products = responseData;
+    });
   }
 }
