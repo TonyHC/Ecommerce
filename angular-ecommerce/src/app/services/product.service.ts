@@ -60,4 +60,10 @@ export class ProductService {
       map(response => response._embedded.products)
     );
   }
+
+  fetchProductByProductId(productId: number): Observable<Product> {
+    const productUrl = `${this.productsUrl}/${productId}`;
+
+    return this.httpClient.get<Product>(productUrl);
+  }
 }
