@@ -13,12 +13,14 @@ export class ProductListComponent implements OnInit {
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   currentCategoryName!: string;
+
   searchMode: boolean = false;
   currentKeyword!: string;
+  previousKeyword!: string;
 
   currentPageNumber: number = 1;
-  currentPageSize: number = 5;
-  totalElements: number = 0;
+  currentPageSize: number = 10;
+  totalElements!: number;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute) {
@@ -81,9 +83,21 @@ export class ProductListComponent implements OnInit {
   handleSearchProducts() {
     this.currentKeyword = this.route.snapshot.paramMap.get('keyword')!;
 
-    this.productService.searchProductsByKeyword(this.currentKeyword).subscribe((responseData) => {
-      console.log(JSON.stringify(responseData));
-      this.products = responseData;
+    // If we have a different keyword than previous, then set the page number back to 1
+    if (this.previousKeyword != this.currentKeyword) {
+      this.currentPageNumber = 1;
+      this.previousKeyword = this.currentKeyword;
+    }
+
+    // Now we get the list of products and pagination info based on the keyword, page number, and page size
+    this.productService.searchProductsByKeywordPaginate(
+      this.currentPageNumber - 1,
+      this.currentPageSize,
+      this.currentKeyword).subscribe((responseData) => {
+        this.products = responseData._embedded.products;
+        this.currentPageNumber = responseData.page.number + 1;
+        this.currentPageSize = responseData.page.size;
+        this.totalElements = responseData.page.totalElements;
     });
   }
 
