@@ -1,5 +1,5 @@
 <div *ngIf="searchMode && products.length > 0" class="alert alert-primary alert-width mt-4">
-  {{products.length}} results for <strong>"{{currentKeyword}}"</strong>
+  {{totalElements}} results for <strong>"{{currentKeyword}}"</strong>
 </div>
 
 <div *ngIf="products?.length == 0" class="alert alert-warning alert-width mt-4">
@@ -22,7 +22,7 @@
   </div>
 </div>
 
-  <div class="row justify-content-end">
+<div class="row justify-content-end" *ngIf="products.length > 0">
     <!--Pagination-->
     <div class="col-6">
       <ngb-pagination
@@ -35,13 +35,11 @@
       </ngb-pagination>
     </div>
 
-
-    <div class="col-sm-1">
+    <div class="col-sm-1 me-4">
       <select class="form-select" (change)="updatePageSize($event)" style="height: 35px;">
-        <option selected="true">5</option>
-        <option>10</option>
+        <option selected="true">10</option>
         <option>20</option>
         <option>50</option>
       </select>
     </div>
-  </div>
+</div>
