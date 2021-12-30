@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -11,12 +10,15 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products!: Product[];
-  currentCategoryId!: number;
+  currentCategoryId: number = 1;
+  previousCategoryId: number = 1;
   currentCategoryName!: string;
-  searchMode!: boolean;
+  searchMode: boolean = false;
   currentKeyword!: string;
 
-  productSubscription!: Subscription;
+  currentPageNumber: number = 1;
+  currentPageSize: number = 10;
+  totalElements: number = 0;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute) {
@@ -51,14 +53,28 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
     }
 
+    // Check if we have a different category id from previous (if so, then reset page number back to first page)
+    // Since Angular will reuse a component if it is current being viewed
+    if (this.previousCategoryId != this.currentCategoryId) {
+      this.currentPageNumber = 1;
+      this.previousCategoryId = this.currentCategoryId;
+    }
+
+    // Get the category name from category for the given category id
     this.productService.fetchProductCategoryByCategoryId(this.currentCategoryId).subscribe((responseData) => {
       responseData ? this.currentCategoryName = responseData.categoryName : this.currentCategoryName = 'Books';
     });
 
-    // Now we get the list of products based on the category id
-    this.productService.fetchProductsByCategoryId(this.currentCategoryId).subscribe((responseData) => {
-      console.log(JSON.stringify(responseData));
-      this.products = responseData;
+    // Now we get the list of products and pagination info based on the category id, page number, and page size
+    this.productService.fetchProductsByCategoryIdPaginate(
+      // Angular's pagination is 1 based, while Spring Data REST is 0 based
+      this.currentPageNumber - 1,
+      this.currentPageSize,
+      this.currentCategoryId).subscribe((responseData) => {
+        this.products = responseData._embedded.products;
+        this.currentPageNumber = responseData.page.number + 1;
+        this.currentPageSize = responseData.page.size;
+        this.totalElements = responseData.page.totalElements;
     });
   }
 
