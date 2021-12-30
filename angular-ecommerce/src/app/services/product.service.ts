@@ -9,6 +9,12 @@ import { ProductCategory } from '../common/product-category';
 export interface productResponse {
   _embedded: {
     products: Product[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
   }
 }
 
@@ -33,6 +39,13 @@ export class ProductService {
     const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`;
 
     return this.fetchProducts(searchUrl);
+  }
+
+  fetchProductsByCategoryIdPaginate(currentPage: number, currentPageSize: number, categoryId: number): Observable<productResponse> {
+    const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`
+      + `&page=${currentPage}&size=${currentPageSize}`;
+
+    return this.httpClient.get<productResponse>(searchUrl);
   }
 
   fetchProductCategories(): Observable<ProductCategory[]> {
