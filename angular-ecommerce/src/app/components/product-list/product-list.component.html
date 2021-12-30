@@ -6,9 +6,9 @@
   <strong>No products found</strong>
 </div>
 
-<h3 class="mt-4">{{currentCategoryName}}</h3>
+<h3>{{currentCategoryName}}</h3>
 <div class="row">
-  <div *ngFor="let product of products" class="col-md-3 mt-3">
+  <div *ngFor="let product of products" class="col-md-3 product-detail-margins">
     <a routerLink="/products/{{product.id}}">
       <img src="{{product.imageUrl}}" class="img-fluid border image-background">
     </a>
@@ -22,14 +22,26 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-center mt-4">
-  <!--Pagination-->
-  <ngb-pagination
-    [collectionSize]="totalElements"
-    [(page)]="currentPageNumber"
-    [pageSize]="currentPageSize"
-    [ellipses]="true"
-    [maxSize]="3"
-    (pageChange)="listProducts()">
-  </ngb-pagination>
-</div>
+  <div class="row justify-content-end">
+    <!--Pagination-->
+    <div class="col-6">
+      <ngb-pagination
+        [collectionSize]="totalElements"
+        [(page)]="currentPageNumber"
+        [pageSize]="currentPageSize"
+        [maxSize]="5"
+        [boundaryLinks]="true"
+        (pageChange)="listProducts()">
+      </ngb-pagination>
+    </div>
+
+
+    <div class="col-sm-1">
+      <select class="form-select" (change)="updatePageSize($event)" style="height: 35px;">
+        <option selected="true">5</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+      </select>
+    </div>
+  </div>

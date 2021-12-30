@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   currentKeyword!: string;
 
   currentPageNumber: number = 1;
-  currentPageSize: number = 10;
+  currentPageSize: number = 5;
   totalElements: number = 0;
 
   constructor(private productService: ProductService,
@@ -85,5 +85,13 @@ export class ProductListComponent implements OnInit {
       console.log(JSON.stringify(responseData));
       this.products = responseData;
     });
+  }
+
+  updatePageSize(inputEvent: Event) {
+    const newPageSize = +(inputEvent.currentTarget as HTMLInputElement).value;
+
+    this.currentPageSize = newPageSize;
+    this.currentPageNumber = 1;
+    this.listProducts();
   }
 }

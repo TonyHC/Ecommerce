@@ -4,6 +4,11 @@ h2 {
   width: 80%;
 }
 
+h3 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 p {
   font-size: 20px;
   font-weight: 600;
@@ -16,4 +21,12 @@ p {
 
 .alert-width {
   width: 97.5%;
+}
+
+.product-detail-margins {
+  margin-bottom: 40px;
+}
+
+a {
+  text-decoration: none;
 }
