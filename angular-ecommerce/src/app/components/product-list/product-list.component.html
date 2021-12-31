@@ -18,11 +18,11 @@
     <a routerLink="/products/{{product.id}}">
       <p>{{product.unitPrice | currency: 'USD'}}</p>
     </a>
-    <a href="#" class="btn btn-primary">Add</a>
+    <a class="btn btn-primary" (click)="onAddProductToShoppingCart(product)">Add</a>
   </div>
 </div>
 
-<div class="row justify-content-end" *ngIf="products.length > 0">
+<div class="row justify-content-end" *ngIf="products?.length != 0">
     <!--Pagination-->
     <div class="col-6">
       <ngb-pagination

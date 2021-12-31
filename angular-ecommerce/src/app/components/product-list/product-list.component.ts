@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
+import { ShoppingCartItem } from 'src/app/common/shopping-cart-item';
 import { ProductService } from 'src/app/services/product.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +25,7 @@ export class ProductListComponent implements OnInit {
   totalElements!: number;
 
   constructor(private productService: ProductService,
+    private shoppingCartService: ShoppingCartService,
     private route: ActivatedRoute) {
 
   }
@@ -107,5 +110,12 @@ export class ProductListComponent implements OnInit {
     this.currentPageSize = newPageSize;
     this.currentPageNumber = 1;
     this.listProducts();
+  }
+
+  onAddProductToShoppingCart(product: Product) {
+    console.log(`Adding to shoppping cart: ${product.name} | ${product.unitPrice}`);
+
+    const shoppingCartItem = new ShoppingCartItem(product);
+    this.shoppingCartService.addItemToShoppingCart(shoppingCartItem);
   }
 }
