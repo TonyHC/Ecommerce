@@ -5,3 +5,7 @@
 .product-info {
   margin-top: 2.5%;
 }
+
+button {
+  width: fit-content;
+}
