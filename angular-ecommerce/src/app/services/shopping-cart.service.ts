@@ -14,16 +14,13 @@ export class ShoppingCartService {
   addItemToShoppingCart(shoppingCartItem: ShoppingCartItem) {
     // Check if we already have the item in the shopping cart
     let itemExistsInCart: boolean = false;
-    let existingShoppingCartItem: ShoppingCartItem = null as any;
+    let existingShoppingCartItem: ShoppingCartItem | undefined = undefined;
 
     if (this.shoppingCartItems.length > 0) {
-      // Find the item in the shopping cart based on item i
-      for (let currentShoppingCartItem of this.shoppingCartItems) {
-        if (currentShoppingCartItem.id === shoppingCartItem.id) {
-          existingShoppingCartItem = currentShoppingCartItem;
-          break;
-        }
-      }
+      // Return the first element that passes the condition, otherwise returns undefined
+      existingShoppingCartItem = this.shoppingCartItems.find(currentShoppingCartItem =>
+        currentShoppingCartItem.id == shoppingCartItem.id
+      );
 
       // Check if we found the item
       itemExistsInCart = existingShoppingCartItem != null;
@@ -31,7 +28,7 @@ export class ShoppingCartService {
 
     if (itemExistsInCart) {
       // Increment the quantity of the item by one
-      existingShoppingCartItem.quantity++;
+      existingShoppingCartItem!.quantity++;
     } else {
       // Otherwise just add the new item to the shopping cart
       this.shoppingCartItems.push(shoppingCartItem);
