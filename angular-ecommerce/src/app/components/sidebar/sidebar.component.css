@@ -1,11 +1,11 @@
 .sidebar-nav {
-  width: 185px;
+  width: 200px;
   overflow-y: hidden;
   position: fixed;
 }
 
 .main-content {
-  margin-left: 13%;
+  margin-left: 14%;
 }
 
 .nav-link:hover {

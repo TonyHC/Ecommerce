@@ -5,7 +5,7 @@
           <div class="d-flex flex-column px-3 pt-2 min-vh-100">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0" id="menu">
                   <li class="nav-item">
-                      <a href="#" class="nav-link align-middle px-0">
+                      <a routerLink="/products" class="nav-link align-middle px-0">
                           <i class="fs-4 bi-house"></i> <span class="ms-2 d-none d-sm-inline">Home</span>
                       </a>
                   </li>
@@ -23,29 +23,17 @@
                   </li>
                   <hr>
                   <li>
-                      <a href="#" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-table"></i> <span class="ms-2 d-none d-sm-inline">Orders</span></a>
+                      <a routerLink="/shopping-cart" class="nav-link px-0 align-middle">
+                          <i class="fs-4 bi-table"></i> <span class="ms-2 d-none d-sm-inline">Orders</span>
+                      </a>
                   </li>
                   <li>
                     <app-product-category-menu></app-product-category-menu>
                   </li>
                   <li>
-                      <a href="#" data-bs-toggle="collapse" data-bs-target="#submenu3" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-grid"></i> <span class="ms-2 d-none d-sm-inline">Products</span> </a>
-                          <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                          <li class="w-100">
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                          </li>
-                          <li>
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                          </li>
-                          <li>
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                          </li>
-                          <li>
-                              <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                          </li>
-                      </ul>
+                      <a routerLink="/products" class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-grid"></i> <span class="ms-2 d-none d-sm-inline">Products</span>
+                      </a>
                   </li>
                   <hr>
                   <li>
