@@ -1,0 +1,23 @@
+.alert-width {
+  width: 97.5%;
+}
+
+.shopping-cart-heading {
+  border-right-style: none;
+}
+
+.price-table-heading {
+  width: 20%;
+  text-align: end;
+  border-left-style: none;
+}
+
+table {
+  width: 80%;
+}
+
+.remove-link {
+  font-weight: bold;
+  color:rgb(93, 154, 233);
+  text-decoration: none;
+}

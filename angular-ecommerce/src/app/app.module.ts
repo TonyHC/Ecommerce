@@ -10,6 +10,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ShoppingCartDetailsComponent } from './components/shopping-cart-details/shopping-cart-details.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
     SidebarComponent,
     ShortenPipe,
     ProductCategoryMenuComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ShoppingCartDetailsComponent
   ],
   imports: [
     BrowserModule,
