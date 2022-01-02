@@ -28,6 +28,8 @@ export class ShoppingCartDetailsComponent implements OnInit {
     this.shoppingCartService.totalQuantity.subscribe(
       (responseData) => (this.totalQuantity = responseData)
     );
+
+    this.shoppingCartService.computeShoppingCartTotals();
   }
 
   onIncrementItemQuantity(shoppingCartItem: ShoppingCartItem) {
