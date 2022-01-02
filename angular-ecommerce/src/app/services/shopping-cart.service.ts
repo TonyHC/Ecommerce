@@ -18,8 +18,9 @@ export class ShoppingCartService {
 
     if (this.shoppingCartItems.length > 0) {
       // Return the first element that passes the condition, otherwise returns undefined
-      existingShoppingCartItem = this.shoppingCartItems.find(currentShoppingCartItem =>
-        currentShoppingCartItem.id == shoppingCartItem.id
+      existingShoppingCartItem = this.shoppingCartItems.find(
+        (currentShoppingCartItem) =>
+          currentShoppingCartItem.id == shoppingCartItem.id
       );
 
       // Check if we found the item
@@ -38,7 +39,7 @@ export class ShoppingCartService {
     this.computeShoppingCartTotals();
   }
 
-  private computeShoppingCartTotals() {
+  computeShoppingCartTotals() {
     let totalItemPrices: number = 0;
     let totalItemQuantity: number = 0;
 
@@ -51,5 +52,30 @@ export class ShoppingCartService {
     // Publish totalPrice and totalQuantity events, so all subscribers who subscribe will receive the new data
     this.totalPrice.next(totalItemPrices);
     this.totalQuantity.next(totalItemQuantity);
+  }
+
+  decrementShoppingCartItemQuantity(shoppingCartItem: ShoppingCartItem) {
+    shoppingCartItem.quantity--;
+
+    if (shoppingCartItem.quantity === 0) {
+      // Shopping cart item quantity is zero, then remove the item from shopping cart
+      this.removeItemFromShoppingCart(shoppingCartItem);
+    } else {
+      // Otherwise, update and publish new data to subscribers
+      this.computeShoppingCartTotals();
+    }
+  }
+
+  removeItemFromShoppingCart(shoppingCartItem: ShoppingCartItem) {
+    // Find index of shopping cart item to be removed from shoppin cart
+    const shoppingCartItemIndex = this.shoppingCartItems.findIndex(
+      (itemIndex) => itemIndex.id === shoppingCartItem.id
+    );
+
+    // Remove shopping cart item
+    this.shoppingCartItems.splice(shoppingCartItemIndex, 1);
+
+    // Update and publish new data to subscribers
+    this.computeShoppingCartTotals();
   }
 }
