@@ -11,6 +11,8 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartDetailsComponent } from './components/shopping-cart-details/shopping-cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { ShoppingCartDetailsComponent } from './components/shopping-cart-details
     ShortenPipe,
     ProductCategoryMenuComponent,
     ProductDetailsComponent,
-    ShoppingCartDetailsComponent
+    ShoppingCartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
