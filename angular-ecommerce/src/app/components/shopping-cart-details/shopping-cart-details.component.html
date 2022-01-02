@@ -13,12 +13,12 @@
       <tbody>
         <tr *ngFor="let shoppingCartItem of shoppingCartItems">
           <td style="width: 20%;">
-            <img src="{{shoppingCartItem.imageUrl}}" class="img-fluid">
+            <img src="{{shoppingCartItem.imageUrl}}" class="img-fluid cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}">
           </td>
           <td>
-            <p>{{shoppingCartItem.name}}</p>
+            <p class="cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}">{{shoppingCartItem.name}}</p>
             <p><strong>{{shoppingCartItem.unitPrice | currency: 'USD'}}</strong></p>
-            <a class="remove-link" (click)="removeItemFromShoppingCart(shoppingCartItem)" style="cursor: pointer;">Remove</a>
+            <a class="remove-link cursor-pointer" (click)="removeItemFromShoppingCart(shoppingCartItem)">Remove</a>
           </td>
           <td style="text-align: end;">
             <div class="d-flex justify-content-end">

@@ -21,3 +21,7 @@ table {
   color:rgb(93, 154, 233);
   text-decoration: none;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
