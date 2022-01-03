@@ -25,32 +25,32 @@
         <h4 style="font-weight: 550;">Shipping Address</h4>
         <hr>
 
+        <label class="form-label mt-3">Country</label>
+        <select formControlName="country" class="form-select" (change)="onPopulateStates('shippingAddress')">
+          <option *ngFor="let country of countries" [ngValue]="country">
+            {{country.name}}
+          </option>
+        </select>
+
         <label class="form-label mt-3">Street</label>
         <input formControlName="street" class="form-control" type="text">
 
         <div class="row g-5 align-items-center">
-          <div class="col-6">
+          <div class="col-4">
             <label class="form-label mt-3">City</label>
             <input formControlName="city" class="form-control" type="text">
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <label class="form-label mt-3">State</label>
             <select formControlName="state" class="form-select">
-              <option>X</option>
+              <option *ngFor="let state of shippingAddressStates" [ngValue]="state">
+                {{state.name}}
+              </option>
             </select>
           </div>
-        </div>
-
-        <div class="row g-5 align-items-center">
-          <div class="col-6">
+          <div class="col-4">
             <label class="form-label mt-3">Zip Code</label>
             <input formControlName="zipCode" class="form-control" type="text">
-          </div>
-          <div class="col-6">
-            <label class="form-label mt-3">Country</label>
-            <select formControlName="country" class="form-select">
-              <option>X</option>
-            </select>
           </div>
         </div>
     </div>
@@ -62,32 +62,32 @@
       <span> Same as shipping address</span>
       <hr>
 
+      <label class="form-label mt-3">Country</label>
+      <select formControlName="country" class="form-select" (change)="onPopulateStates('billingAddress')">
+        <option *ngFor="let country of countries" [ngValue]="country">
+          {{country.name}}
+        </option>
+      </select>
+
       <label class="form-label mt-3">Street</label>
       <input formControlName="street" class="form-control" type="text">
 
       <div class="row g-5 align-items-center">
-        <div class="col-6">
+        <div class="col-4">
           <label class="form-label mt-3">City</label>
           <input formControlName="city" class="form-control" type="text">
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <label class="form-label mt-3">State</label>
           <select formControlName="state" class="form-select">
-            <option>X</option>
+            <option *ngFor="let state of billingAddressStates" [ngValue]="state">
+              {{state.name}}
+            </option>
           </select>
         </div>
-      </div>
-
-      <div class="row g-5 align-items-center">
-        <div class="col-6">
+        <div class="col-4">
           <label class="form-label mt-3">Zip Code</label>
           <input formControlName="zipCode" class="form-control" type="text">
-        </div>
-        <div class="col-6">
-          <label class="form-label mt-3">Country</label>
-          <select formControlName="country" class="form-select">
-            <option>X</option>
-          </select>
         </div>
       </div>
   </div>
