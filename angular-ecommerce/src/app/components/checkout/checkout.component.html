@@ -133,7 +133,7 @@
 
     <div class="col-6">
         <label class="form-label mt-3">Expiration Year</label>
-        <select formControlName="expirationYear" class="form-select">
+        <select formControlName="expirationYear" class="form-select" (change)="onHandleMonthsAndYears()">
           <option *ngFor="let currentYear of creditCardYears">
             {{currentYear}}
           </option>

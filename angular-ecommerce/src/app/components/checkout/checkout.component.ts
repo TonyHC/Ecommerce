@@ -70,10 +70,26 @@ export class CheckoutComponent implements OnInit {
 
   populateMonthsAndYears() {
     const currentMonth = new Date().getMonth() + 1;
-    this.creditCardMonths = this.checkoutFormService.getCreditCardMonths(currentMonth);
+
+    this.checkoutFormService.getCreditCardMonths(currentMonth).subscribe(responseData =>
+      this.creditCardMonths = responseData
+    )
 
     this.checkoutFormService.getCreditCardYears().subscribe(responseData =>
       this.creditCardYears = responseData
+    )
+  }
+
+  onHandleMonthsAndYears() {
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = +this.checkoutFormGroup.controls['creditCard'].value.expirationYear;
+
+    let startMonth: number;
+
+    currentYear === selectedYear ? startMonth = new Date().getMonth() + 1 : startMonth = 1;
+
+    this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(responseData =>
+      this.creditCardMonths = responseData
     )
   }
 }
