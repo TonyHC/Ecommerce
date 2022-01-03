@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { CheckoutFormService } from 'src/app/services/checkout-form.service';
 
 @Component({
@@ -15,6 +17,10 @@ export class CheckoutComponent implements OnInit {
 
   creditCardMonths: number[] = [];
   creditCardYears: number[] = [];
+
+  countries: Country[] = [];
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
     private checkoutFormService: CheckoutFormService) {
@@ -53,6 +59,7 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.populateMonthsAndYears();
+    this.populateCountries();
   }
 
   onSubmit() {
@@ -63,6 +70,11 @@ export class CheckoutComponent implements OnInit {
     if((inputEvent.currentTarget as HTMLInputElement).checked) {
       this.checkoutFormGroup.controls['billingAddress']
         .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+
+      // Sync billing address states with shipping address states
+      // Billing address states weren't not in sync with shipping address states
+      // when we select the country from shipping address form group
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
     }
@@ -90,6 +102,26 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(responseData =>
       this.creditCardMonths = responseData
+    )
+  }
+
+  populateCountries() {
+    this.checkoutFormService.getCountries().subscribe(responseData =>
+      this.countries = responseData
+    )
+  }
+
+  onPopulateStates(formGroupName: string) {
+    const countryCode: string = this.checkoutFormGroup.controls[formGroupName].value.country.code as string;
+
+    this.checkoutFormService.getStates(countryCode).subscribe(responseData => {
+      console.log(JSON.stringify(responseData));
+
+      formGroupName === 'shippingAddress' ?
+        this.shippingAddressStates = responseData : this.billingAddressStates = responseData;
+
+        this.checkoutFormGroup.controls[formGroupName].patchValue({state: responseData[0]});
+      }
     )
   }
 }
