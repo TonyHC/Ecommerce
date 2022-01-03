@@ -69,7 +69,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   populateMonthsAndYears() {
-    this.creditCardMonths = this.checkoutFormService.getCreditCardMonths();
+    const currentMonth = new Date().getMonth() + 1;
+    this.creditCardMonths = this.checkoutFormService.getCreditCardMonths(currentMonth);
 
     this.checkoutFormService.getCreditCardYears().subscribe(responseData =>
       this.creditCardYears = responseData
