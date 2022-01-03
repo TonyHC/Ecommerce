@@ -92,12 +92,16 @@
 
   <label class="form-label mt-3">Expiration Month</label>
   <select formControlName="expirationMonth" class="form-select">
-    <option>X</option>
+    <option *ngFor="let currentMonth of creditCardMonths">
+      {{currentMonth}}
+    </option>
   </select>
 
   <label class="form-label mt-3">Expiration Year</label>
   <select formControlName="expirationYear" class="form-select">
-    <option>X</option>
+    <option *ngFor="let currentYear of creditCardYears">
+      {{currentYear}}
+    </option>
   </select>
 </div>
 
