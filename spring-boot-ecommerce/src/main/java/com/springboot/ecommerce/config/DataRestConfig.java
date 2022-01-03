@@ -1,7 +1,9 @@
 package com.springboot.ecommerce.config;
 
+import com.springboot.ecommerce.entity.Country;
 import com.springboot.ecommerce.entity.Product;
 import com.springboot.ecommerce.entity.ProductCategory;
+import com.springboot.ecommerce.entity.State;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -27,17 +29,11 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
         HttpMethod[] unsupportedHttpActions = {HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE};
 
-        // Disable Http methods for POST, PUT, and DELETE
-        config.getExposureConfiguration()
-                .forDomainType(Product.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedHttpActions))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedHttpActions));
-
-        // Disable Http methods for POST, PUT, and DELETE
-        config.getExposureConfiguration()
-                .forDomainType(ProductCategory.class)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedHttpActions))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedHttpActions));
+        // Disable Http methods for POST, PUT, and DELETE for specific REST endpoints
+        disableHttpMethods(Product.class, config, unsupportedHttpActions);
+        disableHttpMethods(ProductCategory.class, config, unsupportedHttpActions);
+        disableHttpMethods(Country.class, config, unsupportedHttpActions);
+        disableHttpMethods(State.class, config, unsupportedHttpActions);
 
         // Call an internal helper method to expose the entity ids
         exposeIds(config);
@@ -58,5 +54,12 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         // Expose the entity ids for the array of entity/domain types
         Class<?>[] domainTypes = entityClasses.toArray(new Class[0]);
         config.exposeIdsFor((domainTypes));
+    }
+
+    private void disableHttpMethods(Class<?> theClass, RepositoryRestConfiguration config, HttpMethod[] unsupportedHttpActions) {
+        config.getExposureConfiguration()
+                .forDomainType(theClass)
+                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(unsupportedHttpActions))
+                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(unsupportedHttpActions));
     }
 }
