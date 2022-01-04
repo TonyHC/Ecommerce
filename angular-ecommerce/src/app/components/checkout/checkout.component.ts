@@ -52,10 +52,10 @@ export class CheckoutComponent implements OnInit {
         country: new FormControl('', Validators.required)
       }),
       creditCard: this.formBuilder.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
+        cardType: new FormControl('', Validators.required),
+        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
       })
@@ -140,43 +140,59 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('customer.email')!;
   }
 
-  get ShippingAddressStreet() {
+  get shippingAddressStreet() {
     return this.checkoutFormGroup.get('shippingAddress.street')!;
   }
 
-  get ShippingAddressCity() {
+  get shippingAddressCity() {
     return this.checkoutFormGroup.get('shippingAddress.city')!;
   }
 
-  get ShippingAddressState() {
+  get shippingAddressState() {
     return this.checkoutFormGroup.get('shippingAddress.state')!;
   }
 
-  get ShippingAddressZipCode() {
+  get shippingAddressZipCode() {
     return this.checkoutFormGroup.get('shippingAddress.zipCode')!;
   }
 
-  get ShippingAddressCountry() {
+  get shippingAddressCountry() {
     return this.checkoutFormGroup.get('shippingAddress.country')!;
   }
 
-  get BillingAddressStreet() {
+  get billingAddressStreet() {
     return this.checkoutFormGroup.get('billingAddress.street')!;
   }
 
-  get BillingAddressCity() {
+  get billingAddressCity() {
     return this.checkoutFormGroup.get('billingAddress.city')!;
   }
 
-  get BillingAddressState() {
+  get billingAddressState() {
     return this.checkoutFormGroup.get('billingAddress.state')!;
   }
 
-  get BillingAddressZipCode() {
+  get billingAddressZipCode() {
     return this.checkoutFormGroup.get('billingAddress.zipCode')!;
   }
 
-  get BillingAddressCountry() {
+  get billingAddressCountry() {
     return this.checkoutFormGroup.get('billingAddress.country')!;
+  }
+
+  get creditCardCardType() {
+    return this.checkoutFormGroup.get('creditCard.cardType')!;
+  }
+
+  get creditCardNameOnCard() {
+    return this.checkoutFormGroup.get('creditCard.nameOnCard')!;
+  }
+
+  get creditCardNumber() {
+    return this.checkoutFormGroup.get('creditCard.cardNumber')!;
+  }
+
+  get creditCardSecurityCode() {
+    return this.checkoutFormGroup.get('creditCard.securityCode')!;
   }
 }
