@@ -13,6 +13,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartDetailsComponent } from './components/shopping-cart-details/shopping-cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { notOnlyWhiteSpaceValidatorDirective } from './shared/forbidden-whitespace.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductCategoryMenuComponent,
     ProductDetailsComponent,
     ShoppingCartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    notOnlyWhiteSpaceValidatorDirective
   ],
   imports: [
     BrowserModule,
