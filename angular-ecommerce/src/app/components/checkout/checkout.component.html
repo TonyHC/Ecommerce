@@ -11,7 +11,7 @@
           <input formControlName="firstName" class="form-control" type="text" />
 
           <div *ngIf="customerFirstName.invalid && (customerFirstName.dirty || customerFirstName.touched)" class="alert alert-danger mt-2">
-            <div *ngIf="customerFirstName.errors?.['required']">
+            <div *ngIf="customerFirstName.errors?.['required'] || customerFirstName.errors?.['notOnlyWhiteSpace']">
               First name is required
             </div>
             <div *ngIf="customerFirstName.errors?.['minlength']">
@@ -24,7 +24,7 @@
           <input formControlName="lastName" class="form-control" type="text" />
 
           <div *ngIf="customerLastName.invalid && (customerLastName.dirty || customerLastName.touched)" class="alert alert-danger mt-2">
-            <div *ngIf="customerLastName.errors?.['required']">
+            <div *ngIf="customerLastName.errors?.['required'] || customerLastName.errors?.['notOnlyWhiteSpace']">
               Last name is required
             </div>
             <div *ngIf="customerLastName.errors?.['minlength']">
