@@ -29,6 +29,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initCheckoutForm();
+
+    this.populateMonthsAndYears();
+    this.populateCountries();
+  }
+
+  initCheckoutForm() {
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
@@ -60,9 +67,6 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
-
-    this.populateMonthsAndYears();
-    this.populateCountries();
   }
 
   onSubmit() {
