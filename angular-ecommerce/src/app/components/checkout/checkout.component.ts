@@ -24,6 +24,8 @@ export class CheckoutComponent implements OnInit {
   shippingAddressStates: State[] = [];
   billingAddressStates: State[] = [];
 
+  validCardNumber: boolean = false;
+
   constructor(private formBuilder: FormBuilder,
     private checkoutFormService: CheckoutFormService,
     private shoppingCartService: ShoppingCartService) {
@@ -74,7 +76,7 @@ export class CheckoutComponent implements OnInit {
       creditCard: this.formBuilder.group({
         cardType: new FormControl('', Validators.required),
         nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        cardNumber: new FormControl('', [Validators.required]),
         securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
@@ -143,6 +145,10 @@ export class CheckoutComponent implements OnInit {
         this.checkoutFormGroup.controls[formGroupName].patchValue({state: responseData[0]});
       }
     )
+  }
+
+  onValidCardNumber(cardNumber: string): void {
+    this.validCardNumber = this.checkoutFormService.validCreditCardNumber(cardNumber);
   }
 
   get customerFirstName() {
