@@ -13,9 +13,9 @@
       <img src="{{product.imageUrl}}" class="img-fluid border image-background">
     </a>
 
-    <h2 class="mt-2">{{product.name | shorten: 33}}</h2>
+    <h2 class="mt-2" routerLink="/products/{{product.id}}" style="cursor: pointer;">{{product.name | shorten: 33}}</h2>
 
-    <a routerLink="/products/{{product.id}}">
+    <a>
       <p>{{product.unitPrice | currency: 'USD'}}</p>
     </a>
     <a class="btn btn-primary" (click)="onAddProductToShoppingCart(product)">Add</a>
