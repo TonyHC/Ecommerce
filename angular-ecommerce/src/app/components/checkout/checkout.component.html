@@ -310,8 +310,8 @@
       <h4 style="font-weight: 550">Review Your Order</h4>
       <hr />
 
-      <p>Total Quantity: {{ totalQuantity }}</p>
-      <p>Total Price: {{ totalPrice }}</p>
+      <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
+      <p>Total Price: <strong>{{ totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
     </div>
 
     <!--Submit Button-->

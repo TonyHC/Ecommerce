@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { CheckoutFormService } from 'src/app/services/checkout-form.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { notOnlyWhiteSpace } from 'src/app/shared/forbidden-whitespace.directive';
 
 @Component({
@@ -24,15 +25,27 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private checkoutFormService: CheckoutFormService) {
+    private checkoutFormService: CheckoutFormService,
+    private shoppingCartService: ShoppingCartService) {
 
   }
 
   ngOnInit(): void {
     this.initCheckoutForm();
 
+    this.reviewShoppingCartDetails();
     this.populateMonthsAndYears();
     this.populateCountries();
+  }
+
+  reviewShoppingCartDetails() {
+    this.shoppingCartService.totalPrice.subscribe(responseData =>
+      this.totalPrice = responseData
+    )
+
+    this.shoppingCartService.totalQuantity.subscribe(responseData =>
+      this.totalQuantity = responseData
+    )
   }
 
   initCheckoutForm() {
