@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ShoppingCartItem } from '../common/shopping-cart-item';
 
 @Injectable({
@@ -8,8 +8,10 @@ import { ShoppingCartItem } from '../common/shopping-cart-item';
 export class ShoppingCartService {
   shoppingCartItems: ShoppingCartItem[] = [];
 
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+  // Make use of a BehaviorSubject instead of a Subject to subscribe to get the latest published data (totalPrice and totalQuantity)
+  // for components that haven't been loaded or created yet when subscribed to BehvaiorSubject
+  totalPrice: Subject<number> = new BehaviorSubject<number>(0);
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
   addItemToShoppingCart(shoppingCartItem: ShoppingCartItem) {
     // Check if we already have the item in the shopping cart
@@ -39,7 +41,7 @@ export class ShoppingCartService {
     this.computeShoppingCartTotals();
   }
 
-  computeShoppingCartTotals() {
+  private computeShoppingCartTotals() {
     let totalItemPrices: number = 0;
     let totalItemQuantity: number = 0;
 
