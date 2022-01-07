@@ -12,17 +12,22 @@
               placeholder="Search for products"
               #searchInput
               (keyup.enter)="onSearchProducts(searchInput.value)"
-              style="outline-color: transparent; outline-style: none;">
+              style="border: 1px solid black;">
 
             <button
-              class="btn btn-outline-dark"
+              class="btn btn-outline-dark" placement="bottom" ngbTooltip="Search"
               (click)="onSearchProducts(searchInput.value)">
               <i class="bi bi-search"></i>
             </button>
           </div>
 
-          <button class="btn me-4" type="button">
-            Login
+          <button class="btn me-4" type="button" placement="bottom" ngbTooltip="Login">
+            <div class="d-flex flex-row">
+              <i class="bi bi-box-arrow-in-right" style="font-size: 24px;"></i>
+              <div class="login-position">
+                Login
+              </div>
+            </div>
           </button>
 
           <div class="position-relative">

@@ -40,6 +40,10 @@ a:hover {
 }
 
 .home-icon:hover {
-  box-shadow: rgb(38, 57, 77) 5px 10px 15px -10px;
   color: slateblue;
+}
+
+.login-position {
+  margin-top: 6px;
+  margin-left: 3px;
 }
