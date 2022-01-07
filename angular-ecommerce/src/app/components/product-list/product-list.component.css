@@ -25,6 +25,8 @@ p {
 
 .product-detail-margins {
   margin-bottom: 40px;
+  margin-right: -30px;
+  width: 388px;
 }
 
 a {
