@@ -1,12 +1,12 @@
 import { Product } from "./product";
 
 export class ShoppingCartItem {
-  id!: string;
-  name!: string;
-  imageUrl!: string;
-  unitPrice!: number;
+  id: string;
+  name: string;
+  imageUrl: string;
+  unitPrice: number;
 
-  quantity!: number;
+  quantity: number;
 
   constructor(public product: Product) {
     this.id = product.id.toString();
