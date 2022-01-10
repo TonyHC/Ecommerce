@@ -12,6 +12,7 @@
               placeholder="Search for products"
               #searchInput
               (keyup.enter)="onSearchProducts(searchInput.value)"
+              [ngbTypeahead]="search"
               style="border: 1px solid black;">
 
             <button
