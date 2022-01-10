@@ -33,10 +33,14 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
+  fetchProducts() {
+    return this.retrieveProducts(this.productsUrl);
+  }
+
   fetchProductsByCategoryId(categoryId: number): Observable<Product[]> {
     const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`;
 
-    return this.fetchProducts(searchUrl);
+    return this.retrieveProducts(searchUrl);
   }
 
   fetchProductsByCategoryIdPaginate(
@@ -70,7 +74,7 @@ export class ProductService {
   searchProductsByKeyword(keyword: string): Observable<Product[]> {
     const searchUrl = `${this.productsUrl}/search/findByNameContaining?keyword=${keyword}`;
 
-    return this.fetchProducts(searchUrl);
+    return this.retrieveProducts(searchUrl);
   }
 
   searchProductsByKeywordPaginate(
@@ -85,7 +89,7 @@ export class ProductService {
     return this.httpClient.get<productResponse>(searchUrl);
   }
 
-  private fetchProducts(searchUrl: string): Observable<Product[]> {
+  private retrieveProducts(searchUrl: string): Observable<Product[]> {
     return this.httpClient
       .get<productResponse>(searchUrl)
       .pipe(map((response) => response._embedded.products));
