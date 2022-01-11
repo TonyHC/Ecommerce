@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,11 @@ import { ShoppingCartDetailsComponent } from './components/shopping-cart-details
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { notOnlyWhiteSpaceValidatorDirective } from './shared/forbidden-whitespace.directive';
+import { LoginComponent } from './components/login/login.component';
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+import AppConfig from './app.config';
+import { OktaAuth } from '@okta/okta-auth-js';
+import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,16 +31,33 @@ import { notOnlyWhiteSpaceValidatorDirective } from './shared/forbidden-whitespa
     ProductDetailsComponent,
     ShoppingCartDetailsComponent,
     CheckoutComponent,
-    notOnlyWhiteSpaceValidatorDirective
+    notOnlyWhiteSpaceValidatorDirective,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OktaAuthModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: OKTA_CONFIG,
+      useFactory: () => {
+        const oktaAuth = new OktaAuth(AppConfig.oidc);
+        return {
+          oktaAuth,
+          onAuthRequired: (injector: Injector) => {
+            const router = injector.get(Router);
+             // Redirect the user to your custom login page
+            router.navigate(['/login']);
+          }
+        }
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
