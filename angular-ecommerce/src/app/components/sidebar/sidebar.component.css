@@ -31,3 +31,8 @@ i, a {
 span {
   color: black;
 }
+
+.about-section {
+  text-decoration: none;
+  padding-bottom: 75px;
+}
