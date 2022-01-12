@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private oktaAuth: OktaAuth) {
     this.signIn = new OktaSignIn({
+      logo: 'assets/images/logo.png',
       baseUrl: AppConfig.oidc.issuer.split('/oauth2')[0],
       clientId: AppConfig.oidc.clientId,
       redirectUri: AppConfig.oidc.redirectUri,

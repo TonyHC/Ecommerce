@@ -34,13 +34,20 @@ a:hover {
   font-weight: bold;
 }
 
-.home-icon {
-  font-size: 32px;
+.logo {
+  width: 125px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
-.home-icon:hover {
-  color: slateblue;
+.box {
+  width: 150px;
+}
+
+.box:hover{
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ccc;
 }
 
 .login-position {
