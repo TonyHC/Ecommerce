@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.updateShoppingCartStatus();
     this.initSearchBarTypehead();
 
