@@ -19,6 +19,7 @@ import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 import AppConfig from './app.config';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Router } from '@angular/router';
+import { AccountInfoComponent } from './components/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { Router } from '@angular/router';
     ShoppingCartDetailsComponent,
     CheckoutComponent,
     notOnlyWhiteSpaceValidatorDirective,
-    LoginComponent
+    LoginComponent,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import { Router } from '@angular/router';
         const oktaAuth = new OktaAuth(AppConfig.oidc);
         return {
           oktaAuth,
-          onAuthRequired: (injector: Injector) => {
+          onAuthRequired: (oktaAuth: OktaAuth, injector: Injector) => {
             const router = injector.get(Router);
              // Redirect the user to your custom login page
             router.navigate(['/login']);
