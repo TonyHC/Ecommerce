@@ -13,6 +13,20 @@ export class ShoppingCartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
+  storage: Storage = localStorage;
+
+  constructor() {
+    // Read data from storage
+    let data = JSON.parse(this.storage.getItem('shoppingCartItems')!);
+
+    if (data != null) {
+      this.shoppingCartItems = data;
+    }
+
+    // Compute shopping cart totals on the data that is retrieved from storage
+    this.computeShoppingCartTotals();
+  }
+
   addItemToShoppingCart(shoppingCartItem: ShoppingCartItem) {
     // Check if we already have the item in the shopping cart
     let itemExistsInCart: boolean = false;
@@ -54,6 +68,14 @@ export class ShoppingCartService {
     // Publish totalPrice and totalQuantity events, so all subscribers who subscribe will receive the new data
     this.totalPrice.next(totalItemPrices);
     this.totalQuantity.next(totalItemQuantity);
+
+    // Persist shopping cart data
+    this.persistShoppingCartItems();
+  }
+
+  private persistShoppingCartItems() {
+    // Store current items within shopping cart in localStorage
+    this.storage.setItem('shoppingCartItems', JSON.stringify(this.shoppingCartItems));
   }
 
   decrementShoppingCartItemQuantity(shoppingCartItem: ShoppingCartItem) {
