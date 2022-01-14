@@ -78,6 +78,8 @@ export class ProductListComponent implements OnInit {
         this.currentPageSize = responseData.page.size;
         this.totalElements = responseData.page.totalElements;
     });
+
+    window.scrollTo(0, 0);
   }
 
   handleSearchProducts() {
@@ -99,6 +101,8 @@ export class ProductListComponent implements OnInit {
         this.currentPageSize = responseData.page.size;
         this.totalElements = responseData.page.totalElements;
     });
+
+    window.scrollTo(0, 0);
   }
 
   updatePageSize(inputEvent: Event) {
