@@ -1,61 +1,49 @@
 <div class="container-fluid">
-  <div class="row flex-nowrap">
+  <div class="flex-nowrap">
       <!--Sidebar-->
-      <div class="bg-light sidebar-nav">
-          <div class="d-flex flex-column px-3 pt-2 min-vh-100">
-              <ul class="nav nav-pills flex-column mb-sm-auto mb-0" id="menu">
-                  <li class="nav-item">
-                      <a routerLink="/products" class="nav-link align-middle px-0">
-                          <i class="fs-4 bi-house"></i> <span class="ms-2 d-none d-sm-inline">Home</span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#" class="nav-link px-0 align-middle">
-                        <i class="fs-4 bi-speedometer2"></i> <span class="ms-2 d-none d-sm-inline">Dashboard</span>
-                      </a>
-                  </li>
-                  <hr>
-                  <li>
-                      <a routerLink="/shopping-cart" class="nav-link px-0 align-middle">
-                          <i class="fs-4 bi-table"></i> <span class="ms-2 d-none d-sm-inline">Orders</span>
-                      </a>
-                  </li>
-                  <li>
-                    <app-product-category-menu></app-product-category-menu>
-                  </li>
-                  <li>
-                      <a routerLink="/products" class="nav-link px-0 align-middle">
-                        <i class="fs-4 bi-grid"></i> <span class="ms-2 d-none d-sm-inline">Products</span>
-                      </a>
-                  </li>
-                  <hr>
-                  <li>
-                      <a href="#" class="nav-link px-0 align-middle">
-                        <i class="fs-4 bi-people"></i> <span class="ms-2 d-none d-sm-inline">Customers</span>
-                      </a>
-                  </li>
-              </ul>
-              <hr>
-              <a class="nav-link px-0 align-middle about-section">
-                <i class="bi bi-info-circle" style="font-size: 20px;"></i> <span class="ms-2 d-none d-sm-inline">About</span>
-              </a>
+      <div class="sidebar-nav bg-light" style="margin-left: -12px; overflow-x: hidden;">
+          <div class="d-flex flex-column">
+              <div class="">
+                <div class="">
+                  <div class="list-group list-group-flush list-group-hover" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action" routerLink="/products" routerLinkActive="active-link" data-bs-toggle="list" role="tab">
+                      <i class="fs-4 bi-house"></i> <span class="ms-2 d-none d-sm-inline">Home</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab" aria-controls="list-profile">
+                      <i class="fs-4 bi-speedometer2"></i> <span class="ms-2 d-none d-sm-inline">Dashboard</span>
+                    </a>
+                    <a routerLink="/products" routerLinkActive="active-link" class="list-group-item list-group-item-action  mt-4" data-bs-toggle="list" role="tab" aria-controls="list-settings">
+                      <i class="fs-4 bi-grid"></i> <span class="ms-2 d-none d-sm-inline">Products</span>
+                    </a>
+                    <div class="d-flex flex-row list-group-item disabled">
+                      <i class="fs-4 bi bi-tags"></i> <span class="ms-2 mt-2">Category</span>
+                    </div>
+                    <a *ngFor="let productCategory of productCategories" routerLink="/category/{{productCategory.id}}" routerLinkActive="active-link" class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab">
+                      {{productCategory.categoryName}}
+                    </a>
+                    <a routerLink="/shopping-cart" routerLinkActive="active-link" class="list-group-item list-group-item-action mt-4" data-bs-toggle="list" role="tab" aria-controls="list-messages">
+                      <i class="fs-4 bi-table"></i> <span class="ms-2 d-none d-sm-inline">Orders</span>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab" aria-controls="list-settings">
+                      <i class="fs-4 bi-people"></i> <span class="ms-2 d-none d-sm-inline">Customers</span>
+                    </a>
+                    <footer class="text-lg-start text-muted ms-3" style="font-size: 13px; margin-top: 200px; margin-bottom: 10px;">
+                      <a href="#" style="text-decoration: none;">About</a>
+                      <a href="https://github.com/TonyHC/Ecommerce" style="text-decoration: none; margin-left: 15px;">Github</a>
+                      <!-- Copyright -->
+                      <div class="mt-2">
+                        © 2022 Copyright:
+                        <a class="text-reset fw-bold" href="#" style="text-decoration: none;">TC</a>
+                      </div>
+                    </footer>
+                  </div>
+                </div>
+              </div>
           </div>
       </div>
-      <div class="col d-flex flex-column min-vh-100 main-content">
+      <div class="col d-flex flex-column min-vh-100 main-content" style="overflow-x: hidden;">
           <!--Main Content-->
           <router-outlet></router-outlet>
-
-          <!--Footer-->
-          <footer class="text-center text-lg-start text-muted mt-auto">
-            <div class="text-center mt-5 mb-2">
-              <a href="https://github.com/TonyHC/Ecommerce" style="text-decoration: none;">Github</a>
-            </div>
-            <!-- Copyright -->
-            <div class="text-center p-4">
-              © 2021 Copyright:
-              <a class="text-reset fw-bold" href="#" style="text-decoration: none;">TC</a>
-            </div>
-          </footer>
       </div>
   </div>
 </div>

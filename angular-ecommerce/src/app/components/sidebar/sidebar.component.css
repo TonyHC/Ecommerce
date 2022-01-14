@@ -1,11 +1,21 @@
 .sidebar-nav {
-  width: 225px;
-  overflow-y: hidden;
+  margin-top: 65px;
+  width: 200px;
+  overflow: hidden;
   position: fixed;
+  height: 740px;
+}
+
+.sidebar-nav:hover {
+  overflow: auto;
+}
+
+.active-link {
+  font-weight: bold;
 }
 
 .main-content {
-  margin-left: 15%;
+  margin-left: 14%;
 }
 
 .nav-link:hover {
@@ -32,7 +42,8 @@ span {
   color: black;
 }
 
-.about-section {
-  text-decoration: none;
-  padding-bottom: 75px;
+hr {
+  height: 0.5px;
+  width: 200px;
+  margin-left: -30px;
 }
