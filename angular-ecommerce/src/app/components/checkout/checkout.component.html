@@ -1,4 +1,4 @@
-<div>
+<div class="checkout-form-position">
   <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
     <!--Customer Form Group-->
     <div formGroupName="customer" class="form-area">
@@ -315,13 +315,13 @@
 
       <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
       <p>Total Price: <strong>{{ totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
-    </div>
 
-    <!--Submit Button-->
-    <div>
-      <button type="submit" class="btn btn-outline-info mt-5" [disabled]="!checkoutFormGroup.valid">
-        Confirm Purchase
-      </button>
+      <!--Submit Button-->
+      <div>
+        <button type="submit" class="btn btn-outline-info mt-3" [disabled]="!checkoutFormGroup.valid">
+          Confirm Purchase
+        </button>
+      </div>
     </div>
   </form>
 </div>
