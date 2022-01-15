@@ -1,9 +1,11 @@
 .sidebar-nav {
   margin-top: 65px;
+  margin-left: -12px;
   width: 200px;
   overflow: hidden;
   position: fixed;
   height: 740px;
+  overflow-x: hidden;
 }
 
 .sidebar-nav:hover {
@@ -16,6 +18,7 @@
 
 .main-content {
   margin-left: 14%;
+  overflow-x: hidden;
 }
 
 .nav-link:hover {
@@ -36,6 +39,7 @@
 
 i, a {
   color: black;
+  text-decoration: none;
 }
 
 span {
@@ -46,4 +50,15 @@ hr {
   height: 0.5px;
   width: 200px;
   margin-left: -30px;
+}
+
+.footer-section {
+  font-size: 13px;
+   margin-top: 310px;
+}
+
+.collapsing {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  transition: height 0.2s ease;
 }
