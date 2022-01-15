@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.RequestParam;
 
+@RepositoryRestResource
 public interface ProductRepository extends JpaRepository<Product, Long> {
     /*
     * Built in Query method (findByCategoryId) to find all products that matches the Category Id
