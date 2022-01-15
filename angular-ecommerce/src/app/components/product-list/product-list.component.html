@@ -1,14 +1,14 @@
-<div *ngIf="searchMode && products.length > 0" class="alert alert-primary alert-width mt-4">
+<div *ngIf="searchMode && products.length > 0" class="alert alert-primary alert-width result-message">
   <strong>{{totalElements}}</strong> results for <strong>"{{currentKeyword}}"</strong>
 </div>
 
-<div *ngIf="products?.length == 0" class="alert alert-warning alert-dismissible fade show alert-width mt-4">
+<div *ngIf="products?.length == 0" class="alert alert-warning alert-dismissible fade show alert-width result-message">
   <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
   <strong>No products found</strong>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
 </div>
 
-<h3>{{currentCategoryName}}</h3>
+<h3 class="category-name">{{currentCategoryName}}</h3>
 <div class="row">
   <div *ngFor="let product of products" class="col-3 product-detail-margins">
     <a routerLink="/products/{{product.id}}">
