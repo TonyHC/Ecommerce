@@ -63,7 +63,7 @@ export class ProductListComponent implements OnInit {
     }
 
     // Get the category name from category for the given category id
-    this.productService.fetchProductCategoryByCategoryId(this.currentCategoryId).subscribe((responseData) => {
+    this.productService.fetchProductCategoryById(this.currentCategoryId).subscribe((responseData) => {
       responseData ? this.currentCategoryName = responseData.categoryName : this.currentCategoryName = 'Books';
     });
 

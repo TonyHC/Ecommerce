@@ -61,14 +61,13 @@ export class ProductService {
       .pipe(map((response) => response._embedded.productCategory));
   }
 
-  fetchProductCategoryByCategoryId(
+  fetchProductCategoryById(
     categoryId: number
   ): Observable<ProductCategory> {
     const searchUrl = `${this.categorysUrl}/${categoryId}`;
 
     return this.httpClient
-      .get<ProductCategory>(searchUrl)
-      .pipe(map((response) => response));
+      .get<ProductCategory>(searchUrl);
   }
 
   searchProductsByKeyword(keyword: string): Observable<Product[]> {
