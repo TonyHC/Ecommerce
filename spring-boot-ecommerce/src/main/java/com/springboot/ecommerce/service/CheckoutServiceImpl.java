@@ -41,8 +41,18 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setBillingAddress(purchase.getBillingAddress());
         order.setShippingAddress(purchase.getShippingAddress());
 
-        // Extract the customer data and add the order data to customer
+        // Extract the customer data and customer email to determine whether customer exists or is new
         Customer customer = purchase.getCustomer();
+        String customerEmail = customer.getEmail();
+
+        // Check if this is an existing customer
+        Customer customerFromDB = customerRepository.findByEmail(customerEmail);
+        if (customerFromDB != null) {
+            // Existing customer
+            customer = customerFromDB;
+        }
+
+        // Add order to associated customer (existing or new)
         customer.addOrder(order);
 
         // Save the customer data containing the order, order item, billing and shipping address data into db
