@@ -4,6 +4,7 @@ import com.springboot.ecommerce.entity.Country;
 import com.springboot.ecommerce.entity.Product;
 import com.springboot.ecommerce.entity.ProductCategory;
 import com.springboot.ecommerce.entity.State;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -18,6 +19,9 @@ import java.util.Set;
 
 @Configuration
 public class DataRestConfig implements RepositoryRestConfigurer {
+    @Value("${allowed.origins}")
+    private String[] allowedOrigins;
+
     private final EntityManager entityManager;
 
     public DataRestConfig(EntityManager entityManager) {
@@ -27,9 +31,9 @@ public class DataRestConfig implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
-        HttpMethod[] unsupportedHttpActions = {HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE};
+        HttpMethod[] unsupportedHttpActions = {HttpMethod.PATCH, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE};
 
-        // Disable Http methods for POST, PUT, and DELETE for specific REST endpoints
+        // Disable Http methods for PATCH, POST, PUT, and DELETE for specific REST endpoints
         disableHttpMethods(Product.class, config, unsupportedHttpActions);
         disableHttpMethods(ProductCategory.class, config, unsupportedHttpActions);
         disableHttpMethods(Country.class, config, unsupportedHttpActions);
@@ -37,6 +41,9 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 
         // Call an internal helper method to expose the entity ids
         exposeIds(config);
+
+        // Configure cors mapping
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins);
     }
 
     private void exposeIds(RepositoryRestConfiguration config) {
