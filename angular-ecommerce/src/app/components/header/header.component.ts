@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   userName: string = '';
   isAuthenticated: boolean = false;
+  storage: Storage = sessionStorage;
 
   constructor(private router: Router,
     private shoppingCartService: ShoppingCartService,
@@ -31,17 +32,25 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.updateShoppingCartStatus();
     this.initSearchBarTypehead();
-
     this.getUserDetails();
   }
 
   getUserDetails() {
     this.authStateService.authState$.subscribe((result) => {
       this.isAuthenticated = result.isAuthenticated!;
+
+      // Fetch the logged in user details (user's claims)
       if (this.isAuthenticated) {
-        this.oktaAuth.getUser().then(
-          (response) => this.userName = response.name as string
-        )
+        this.oktaAuth.getUser().then((response) => {
+          // Retrieve and store the user's full name
+          this.userName = response.name as string;
+
+          // Retrieve the user's email from authentication response
+          const email = response.email;
+
+          // Store the email in browser session storage
+          this.storage.setItem('userEmail', JSON.stringify(email));
+        });
       }
     });
   }
