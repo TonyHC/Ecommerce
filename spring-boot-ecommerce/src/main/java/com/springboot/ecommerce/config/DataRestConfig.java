@@ -1,9 +1,6 @@
 package com.springboot.ecommerce.config;
 
-import com.springboot.ecommerce.entity.Country;
-import com.springboot.ecommerce.entity.Product;
-import com.springboot.ecommerce.entity.ProductCategory;
-import com.springboot.ecommerce.entity.State;
+import com.springboot.ecommerce.entity.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -38,6 +35,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         disableHttpMethods(ProductCategory.class, config, unsupportedHttpActions);
         disableHttpMethods(Country.class, config, unsupportedHttpActions);
         disableHttpMethods(State.class, config, unsupportedHttpActions);
+        disableHttpMethods(Order.class, config, unsupportedHttpActions);
 
         // Call an internal helper method to expose the entity ids
         exposeIds(config);
