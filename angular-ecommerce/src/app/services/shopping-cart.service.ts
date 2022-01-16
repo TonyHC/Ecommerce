@@ -13,7 +13,7 @@ export class ShoppingCartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
-  storage: Storage = localStorage;
+  storage: Storage = sessionStorage;
 
   constructor() {
     // Read data from storage
