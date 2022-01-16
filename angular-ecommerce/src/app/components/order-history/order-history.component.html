@@ -1,0 +1,28 @@
+<div *ngIf="orderHistoryList.length === 0" class="alert alert-warning alert-dismissible fade show result-message">
+  <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
+  <strong>No orders found</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
+</div>
+
+<div *ngIf="orderHistoryList.length > 0" style="margin-top: 100px; margin-left: 50px;">
+  <h3>Your Orders</h3>
+  <table class="table table-light table-bordered table-striped mt-4" style="width: 80%;">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Order Tracking Number</th>
+        <th style="width: 10%;">Total Price</th>
+        <th style="width: 10%;">Total Quantity</th>
+        <th style="width: 20%;">Date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let orderHistoryItem of orderHistoryList">
+        <td>{{orderHistoryItem.orderTrackingNumber}}</td>
+        <td>{{orderHistoryItem.totalPrice | number: '1.0-2' | currency: 'USD'}}</td>
+        <td>{{orderHistoryItem.totalQuantity}}</td>
+        <td>{{orderHistoryItem.dateCreated | date: 'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

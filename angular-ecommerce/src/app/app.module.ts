@@ -19,6 +19,7 @@ import AppConfig from './app.config';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Router } from '@angular/router';
 import { AccountInfoComponent } from './components/account-info/account-info.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AccountInfoComponent } from './components/account-info/account-info.com
     CheckoutComponent,
     notOnlyWhiteSpaceValidatorDirective,
     LoginComponent,
-    AccountInfoComponent
+    AccountInfoComponent,
+    OrderHistoryComponent
   ],
   imports: [
     BrowserModule,
