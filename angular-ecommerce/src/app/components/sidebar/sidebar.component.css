@@ -54,7 +54,8 @@ hr {
 
 .footer-section {
   font-size: 13px;
-   margin-top: 310px;
+  margin-top: 310px;
+  margin-bottom: 10px;
 }
 
 .collapsing {

@@ -42,3 +42,10 @@ a {
   margin-bottom: -50px;
 }
 
+.pagination-controls {
+  margin-bottom: 25px;
+}
+
+.page-size {
+  margin-right: 50px;
+}
