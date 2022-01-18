@@ -14,7 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Only add access token for secured endpoints
-    const secureEndpoints = ['http://localhost:8080/api/orders'];
+    const secureEndpoints = ['http://localhost:8080/api/orders', 'http://localhost:8080/api/checkout'];
 
     if (secureEndpoints.some(url => req.urlWithParams.includes(url))) {
       // Get access token
