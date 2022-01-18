@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // Protect endpoint /api/orders
+        // Protect endpoints /api/orders/** and /api/checkout/**
         http.authorizeRequests()
-                .antMatchers("/api/orders/**")
+                .antMatchers("/api/orders/**", "/api/checkout/**")
                 .authenticated()
                 .and()
                 .oauth2ResourceServer()
