@@ -12,7 +12,7 @@ import { ShoppingCartDetailsComponent } from './components/shopping-cart-details
 const routes: Routes = [
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'checkout', component: CheckoutComponent},
+  {path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard]},
   {path: 'shopping-cart', component: ShoppingCartDetailsComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'search/:keyword', component: ProductListComponent},
