@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Country } from '../common/country';
 import { State } from '../common/state';
 
@@ -21,8 +22,8 @@ export interface statesResponse {
   providedIn: 'root'
 })
 export class CheckoutFormService {
-  private countriesUrl = 'http://localhost:8080/api/countries';
-  private statesUrl = 'http://localhost:8080/api/states';
+  private countriesUrl = environment.ecommerceApiUrl + '/countries';
+  private statesUrl = environment.ecommerceApiUrl + '/states';
 
   constructor(private http: HttpClient) { }
 
