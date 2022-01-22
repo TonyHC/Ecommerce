@@ -8,7 +8,7 @@ import { Purchase } from '../common/purchase';
   providedIn: 'root'
 })
 export class CheckoutService {
-  private purchaseUrl = environment.ecommerceApiUrl + '/purchase';
+  private purchaseUrl = environment.ecommerceApiUrl + '/checkout/purchase';
 
   constructor(private http: HttpClient) {
 
