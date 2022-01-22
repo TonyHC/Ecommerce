@@ -43,10 +43,14 @@ export class HeaderComponent implements OnInit {
       if (this.isAuthenticated) {
         this.oktaAuth.getUser().then((response) => {
           // Retrieve and store the user's full name
-          this.userName = response.name as string;
+          const fullName = response.name;
+          this.userName = fullName!;
 
           // Retrieve the user's email from authentication response
           const email = response.email;
+
+          // Store the user's full name in browser session storage
+          this.storage.setItem('userName', JSON.stringify(fullName));
 
           // Store the email in browser session storage
           this.storage.setItem('userEmail', JSON.stringify(email));
