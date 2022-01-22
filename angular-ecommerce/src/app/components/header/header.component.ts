@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
   }
 
   initSearchBarTypehead() {
-    this.productService.fetchProducts().subscribe(
+    this.productService.fetchProductsPaginate().subscribe(
       responseData => responseData.forEach(product => this.productNames.push(product.name))
     );
   }

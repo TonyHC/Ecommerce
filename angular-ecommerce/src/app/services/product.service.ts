@@ -34,8 +34,12 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
-  fetchProducts() {
-    return this.retrieveProducts(this.productsUrl);
+  fetchProductsPaginate() {
+    const searchUrl = `${this.productsUrl}?size=100`;
+
+    return this.httpClient.get<productResponse>(searchUrl).pipe(
+      map(response => response._embedded.products)
+    );
   }
 
   fetchProductsByCategoryId(categoryId: number): Observable<Product[]> {
