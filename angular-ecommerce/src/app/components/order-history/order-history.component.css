@@ -3,3 +3,20 @@
   margin-bottom: -50px;
   width: 97.5%;
 }
+
+.orders-content {
+  margin-top: 30px;
+  margin-left: 160px;
+  margin-bottom: 30px;
+  width: 75%;
+}
+
+.orders-title {
+  margin-top: 85px;
+  margin-bottom: 30px;
+  margin-left: 160px;
+}
+
+img, h5 {
+  cursor: pointer;
+}
