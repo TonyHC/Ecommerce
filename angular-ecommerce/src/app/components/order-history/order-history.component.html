@@ -1,36 +1,83 @@
-<div *ngIf="orderHistoryList.length === 0" class="alert alert-warning alert-dismissible fade show result-message">
-  <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
+<div
+  *ngIf="orderHistoryList.length === 0"
+  class="alert alert-warning alert-dismissible fade show result-message">
+  <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px"></i> &nbsp;
   <strong>No orders found</strong>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+    style="margin-top: 5px"
+  ></button>
 </div>
 
 <div class="orders-title" *ngIf="orderHistoryList.length !== 0">
   <h3>Your Orders</h3>
 </div>
 
-<div class="card orders-content" *ngFor="let orderHistoryItem of orderHistoryList">
+<div
+  class="card orders-content"
+  *ngFor="let orderHistoryItem of orderHistoryList">
   <div class="card-header d-flex flex-row">
-    Order Placed: <br> {{orderHistoryItem.dateCreated | date: 'medium'}}
+    Order Placed: <br />
+    {{ orderHistoryItem.dateCreated | date: "medium" }}
 
     <div class="ms-5">
-      Total Price: <br> {{orderHistoryItem.totalPrice | number: '1.0-2' | currency: 'USD'}}
+      Total Price: <br />
+      {{ orderHistoryItem.totalPrice | number: "1.0-2" | currency: "USD" }}
     </div>
 
+    <ng-template #customerInfo>
+      <strong>
+        {{ orderHistoryItem.customer.firstName }}
+        {{ orderHistoryItem.customer.lastName }}
+      </strong>
+      <br />
+      {{ orderHistoryItem.shippingAddress.street }}
+      <br />
+      {{ orderHistoryItem.shippingAddress.city }},
+      {{ orderHistoryItem.shippingAddress.state }}
+      {{ orderHistoryItem.shippingAddress.zipCode }}
+      <br />
+      {{ orderHistoryItem.shippingAddress.country }}
+    </ng-template>
+
     <div class="ms-5">
-      Ship To: <br> {{orderHistoryItem.customer.firstName}}  {{orderHistoryItem.customer.lastName}}
+      Ship To: <br />
+      <strong
+        placement="bottom"
+        [ngbPopover]="customerInfo"
+        popoverTitle="Shipping Address"
+        [openDelay]="100"
+        [closeDelay]="300"
+        triggers="mouseenter:mouseleave"
+        style="cursor: pointer">
+        {{ orderHistoryItem.customer.firstName }}
+        {{ orderHistoryItem.customer.lastName }}
+        <i class="bi bi-caret-down-fill" style="font-size: 12px"></i>
+      </strong>
     </div>
 
     <div class="ms-auto">
-      Order Number: <br> {{orderHistoryItem.orderTrackingNumber}}
+      Order Number: <br />
+      {{ orderHistoryItem.orderTrackingNumber }}
     </div>
   </div>
-  <ul class="list-group list-group-flush" *ngFor="let orderItem of orderHistoryItem.orderItems">
+  <ul
+    class="list-group list-group-flush"
+    *ngFor="let orderItem of orderHistoryItem.orderItems">
     <li class="list-group-item">
       <div class="d-flex flex-row">
-        <img src="{{orderItem.imageUrl}}" width="150" routerLink="/products/{{orderItem.productId}}">
+        <img
+          src="{{ orderItem.imageUrl }}"
+          width="150"
+          routerLink="/products/{{ orderItem.productId }}"/>
         <div class="d-flex flex-column ms-3">
-          <h5 class="mt-3" routerLink="/products/{{orderItem.productId}}">{{orderItem.name}}</h5>
-          <p>Quantity: {{orderItem.quantity}}</p>
+          <h6 class="mt-3" routerLink="/products/{{ orderItem.productId }}">
+            {{ orderItem.name }}
+          </h6>
+          <p>Quantity: {{ orderItem.quantity }}</p>
         </div>
       </div>
     </li>

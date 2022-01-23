@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private shoppingCartService: ShoppingCartService,
     private productService: ProductService,
-    public authStateService: OktaAuthStateService,
+    private authStateService: OktaAuthStateService,
     private oktaAuth: OktaAuth) {
 
   }

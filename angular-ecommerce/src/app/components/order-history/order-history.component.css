@@ -17,6 +17,10 @@
   margin-left: 160px;
 }
 
-img, h5 {
+img, h6 {
   cursor: pointer;
+}
+
+p {
+  font-size: 14px;
 }
