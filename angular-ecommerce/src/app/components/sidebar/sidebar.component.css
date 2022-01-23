@@ -1,11 +1,10 @@
 .sidebar-nav {
-  margin-top: 65px;
+  margin-top: 60px;
   margin-left: -12px;
   width: 200px;
   overflow: hidden;
   position: fixed;
-  height: 740px;
-  overflow-x: hidden;
+  height: 92.5%;
 }
 
 .sidebar-nav:hover {
@@ -53,13 +52,18 @@ hr {
 }
 
 .footer-section {
+  margin-top: 510px;
+  height: 50px;
   font-size: 13px;
-  margin-top: 310px;
-  margin-bottom: 10px;
 }
 
 .collapsing {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
   transition: height 0.2s ease;
+}
+
+.list-title {
+  font-weight: bold;
+  font-size: 14px;
 }
