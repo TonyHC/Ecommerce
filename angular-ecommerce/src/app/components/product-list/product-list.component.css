@@ -20,7 +20,7 @@ p {
 }
 
 .alert-width {
-  width: 97.5%;
+  width: 96.8%;
 }
 
 .product-detail-margins {
@@ -48,4 +48,15 @@ a {
 
 .page-size {
   margin-right: 50px;
+}
+
+option, select {
+  font-size: 13px;
+}
+
+.search-results {
+  margin-top: 90px;
+  height: 60px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  width: 96.8%;
 }
