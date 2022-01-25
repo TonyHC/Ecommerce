@@ -37,9 +37,9 @@ export class ProductService {
   fetchProductsPaginate() {
     const searchUrl = `${this.productsUrl}?size=100`;
 
-    return this.httpClient.get<productResponse>(searchUrl).pipe(
-      map(response => response._embedded.products)
-    );
+    return this.httpClient
+      .get<productResponse>(searchUrl)
+      .pipe(map((response) => response._embedded.products));
   }
 
   fetchProductsByCategoryId(categoryId: number): Observable<Product[]> {
@@ -66,13 +66,10 @@ export class ProductService {
       .pipe(map((response) => response._embedded.productCategory));
   }
 
-  fetchProductCategoryById(
-    categoryId: number
-  ): Observable<ProductCategory> {
+  fetchProductCategoryById(categoryId: number): Observable<ProductCategory> {
     const searchUrl = `${this.categorysUrl}/${categoryId}`;
 
-    return this.httpClient
-      .get<ProductCategory>(searchUrl);
+    return this.httpClient.get<ProductCategory>(searchUrl);
   }
 
   searchProductsByKeyword(keyword: string): Observable<Product[]> {
@@ -84,11 +81,13 @@ export class ProductService {
   searchProductsByKeywordPaginate(
     currentPage: number,
     currentPageSize: number,
-    keyword: string
+    keyword: string,
+    sortField: string,
+    sortDirection: string
   ): Observable<productResponse> {
     const searchUrl =
       `${this.productsUrl}/search/findByNameContaining?keyword=${keyword}` +
-      `&page=${currentPage}&size=${currentPageSize}`;
+      `&page=${currentPage}&size=${currentPageSize}&sort=${sortField},${sortDirection}`;
 
     return this.httpClient.get<productResponse>(searchUrl);
   }
