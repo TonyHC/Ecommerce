@@ -22,6 +22,9 @@ export class ProductListComponent implements OnInit {
   currentPageSize: number = 10;
   totalElements!: number;
 
+  currentSortField: string = 'name';
+  currentSortDirection: string = 'asc';
+
   constructor(private productService: ProductService,
     private route: ActivatedRoute) {
 
@@ -95,7 +98,9 @@ export class ProductListComponent implements OnInit {
     this.productService.searchProductsByKeywordPaginate(
       this.currentPageNumber - 1,
       this.currentPageSize,
-      this.currentKeyword).subscribe((responseData) => {
+      this.currentKeyword,
+      this.currentSortField,
+      this.currentSortDirection).subscribe((responseData) => {
         this.products = responseData._embedded.products;
         this.currentPageNumber = responseData.page.number + 1;
         this.currentPageSize = responseData.page.size;
@@ -110,6 +115,16 @@ export class ProductListComponent implements OnInit {
 
     this.currentPageSize = newPageSize;
     this.currentPageNumber = 1;
+    this.listProducts();
+  }
+
+  updateSortFields(inputEvent: Event) {
+    const userSortChoice = (inputEvent.currentTarget as HTMLInputElement).value.split(',');
+
+    this.currentSortField = userSortChoice[0];
+    this.currentSortDirection = userSortChoice[1];
+    this.currentPageNumber = 1;
+
     this.listProducts();
   }
 }
