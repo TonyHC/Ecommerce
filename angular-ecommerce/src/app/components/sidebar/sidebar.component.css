@@ -6,6 +6,8 @@
   position: fixed;
   height: 90.5%;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  scrollbar-width: thin;
+  z-index: 100;
 }
 
 .sidebar-nav:hover {

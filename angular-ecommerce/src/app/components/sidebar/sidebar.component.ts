@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { OktaAuthStateService } from '@okta/okta-angular';
-import { Subscription } from 'rxjs';
 import { ProductCategory } from 'src/app/common/product-category';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -27,7 +26,6 @@ export class SidebarComponent implements OnInit {
   listProductCategories() {
     this.productService.fetchProductCategories().subscribe(
       responseData => {
-        console.log(JSON.stringify(responseData));
         this.productCategories = responseData
       }
     );
