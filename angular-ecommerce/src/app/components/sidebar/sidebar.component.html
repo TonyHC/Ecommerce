@@ -8,8 +8,7 @@
           <a
             class="list-group-item list-group-item-action"
             routerLink="/products"
-            routerLinkActive="active-link"
-            data-bs-toggle="list">
+            routerLinkActive="active-link">
             <i class="fs-4 bi-house"></i>
             <span class="ms-2 d-none d-sm-inline">Home</span>
           </a>
@@ -26,22 +25,19 @@
             routerLink="/category/{{ productCategory.id }}"
             routerLinkActive="active-link"
             class="collapse list-group-item list-group-item-action"
-            id="submenu2"
-            data-bs-toggle="list">
+            id="submenu2">
             {{ productCategory.categoryName }}
           </a>
           <a
             routerLink="/shopping-cart"
             routerLinkActive="active-link"
-            class="list-group-item list-group-item-action"
-            data-bs-toggle="list">
+            class="list-group-item list-group-item-action">
             <i class="bi bi-basket-fill" style="font-size: 24px;"></i>
             <span class="ms-2 d-none d-sm-inline">Shopping Cart</span>
           </a>
 
           <a
             class="list-group-item disabled mt-4"
-            data-bs-toggle="list"
             *ngIf="isAuthenticated">
             <span class="d-none d-sm-inline text-muted list-title">CUSTOMER</span>
           </a>
@@ -49,7 +45,6 @@
             routerLink="/account"
             routerLinkActive="active-link"
             class="list-group-item list-group-item-action"
-            data-bs-toggle="list"
             *ngIf="isAuthenticated">
             <i class="bi bi-person-rolodex" style="font-size: 24px;"></i>
             <span class="ms-2 d-none d-sm-inline">Account</span>
@@ -58,7 +53,6 @@
             routerLink="/order-history"
             routerLinkActive="active-link"
             class="list-group-item list-group-item-action"
-            data-bs-toggle="list"
             *ngIf="isAuthenticated"
             style="margin-bottom: -170px">
             <i class="bi bi-calendar4" style="font-size: 24px;"></i>
@@ -73,8 +67,8 @@
             >Github</a>
           <!-- Copyright -->
           <div class="mt-2">
-            © 2022 Copyright:
-            <a class="text-reset fw-bold">TC</a>
+            © 2022
+            <a class="text-reset">Tony Chao</a>
           </div>
         </footer>
       </div>
