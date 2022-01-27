@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OktaAuthStateService } from '@okta/okta-angular';
+import { Subscription } from 'rxjs';
 import { ProductCategory } from 'src/app/common/product-category';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -8,10 +9,13 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   productCategories!: ProductCategory[];
   isAuthenticated: boolean = false;
   storage: Storage = sessionStorage;
+
+  productSubscription!: Subscription;
+  oktaAuthStateSubscription!: Subscription;
 
   constructor(private productService: ProductService,
     private authStateService: OktaAuthStateService) {
@@ -24,7 +28,7 @@ export class SidebarComponent implements OnInit {
   }
 
   listProductCategories() {
-    this.productService.fetchProductCategories().subscribe(
+    this.productSubscription = this.productService.fetchProductCategories().subscribe(
       responseData => {
         this.productCategories = responseData
       }
@@ -32,6 +36,13 @@ export class SidebarComponent implements OnInit {
   }
 
   getUserAuthenticationState() {
-    this.authStateService.authState$.subscribe(result => this.isAuthenticated = result.isAuthenticated!);
+    this.oktaAuthStateSubscription = this.authStateService.authState$.subscribe(
+      result => this.isAuthenticated = result.isAuthenticated!
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.oktaAuthStateSubscription.unsubscribe();
+    this.productSubscription.unsubscribe();
   }
 }

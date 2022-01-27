@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Country } from 'src/app/common/country';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
@@ -16,8 +17,9 @@ import { notOnlyWhiteSpace } from 'src/app/shared/forbidden-whitespace.directive
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
   checkoutFormGroup!: FormGroup;
+  storage: Storage = sessionStorage;
 
   totalPrice: number = 0;
   totalQuantity: number = 0;
@@ -30,7 +32,13 @@ export class CheckoutComponent implements OnInit {
   shippingAddressStates: State[] = [];
   billingAddressStates: State[] = [];
 
-  storage: Storage = sessionStorage;
+  totalPriceSubscription!: Subscription;
+  totalQuantitySubscription!: Subscription;
+  creditCardMonthSubscription!: Subscription;
+  creditCardYearSubscription!: Subscription;
+  countrySubscroption!: Subscription;
+  stateSubscription!: Subscription;
+  placeOrderSubscription!: Subscription;
 
   constructor(private formBuilder: FormBuilder,
     private checkoutFormService: CheckoutFormService,
@@ -48,8 +56,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   reviewShoppingCartDetails() {
-    this.shoppingCartService.totalPrice.subscribe(responseData => this.totalPrice = responseData)
-    this.shoppingCartService.totalQuantity.subscribe(responseData =>this.totalQuantity = responseData)
+    this.totalPriceSubscription = this.shoppingCartService.totalPrice.subscribe(responseData => this.totalPrice = responseData)
+    this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(responseData =>this.totalQuantity = responseData)
   }
 
   initCheckoutForm() {
@@ -122,7 +130,7 @@ export class CheckoutComponent implements OnInit {
     purchase.orderItems = orderItems;
 
     // Call REST API via checkout service
-    this.checkoutService.placeOrder(purchase).subscribe({
+    this.placeOrderSubscription = this.checkoutService.placeOrder(purchase).subscribe({
         next: responseData => {
           console.log("Order tracking number: " + JSON.stringify(responseData.orderTrackingNumber));
 
@@ -166,8 +174,10 @@ export class CheckoutComponent implements OnInit {
   populateMonthsAndYears() {
     const currentMonth = new Date().getMonth() + 1;
 
-    this.checkoutFormService.getCreditCardMonths(currentMonth).subscribe(responseData => this.creditCardMonths = responseData);
-    this.checkoutFormService.getCreditCardYears().subscribe(responseData => this.creditCardYears = responseData);
+    this.creditCardMonthSubscription =
+      this.checkoutFormService.getCreditCardMonths(currentMonth).subscribe(responseData => this.creditCardMonths = responseData);
+    this.creditCardYearSubscription =
+      this.checkoutFormService.getCreditCardYears().subscribe(responseData => this.creditCardYears = responseData);
   }
 
   onHandleMonthsAndYears() {
@@ -177,17 +187,18 @@ export class CheckoutComponent implements OnInit {
     let startMonth: number;
     currentYear === selectedYear ? startMonth = new Date().getMonth() + 1 : startMonth = 1;
 
-    this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(responseData => this.creditCardMonths = responseData);
+    this.creditCardMonthSubscription =
+      this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(responseData => this.creditCardMonths = responseData);
   }
 
   populateCountries() {
-    this.checkoutFormService.getCountries().subscribe(responseData => this.countries = responseData);
+    this.countrySubscroption = this.checkoutFormService.getCountries().subscribe(responseData => this.countries = responseData);
   }
 
   onPopulateStates(formGroupName: string) {
     const countryCode: string = this.checkoutFormGroup.controls[formGroupName].value.country.code as string;
 
-    this.checkoutFormService.getStates(countryCode).subscribe(responseData => {
+    this.stateSubscription = this.checkoutFormService.getStates(countryCode).subscribe(responseData => {
         formGroupName === 'shippingAddress' ?
           this.shippingAddressStates = responseData : this.billingAddressStates = responseData;
 
@@ -198,6 +209,23 @@ export class CheckoutComponent implements OnInit {
 
   onValidCardNumber(cardNumber: string): void {
     this.validCardNumber = this.checkoutFormService.validCreditCardNumber(cardNumber);
+  }
+
+  ngOnDestroy(): void {
+    this.creditCardMonthSubscription.unsubscribe();
+    this.creditCardYearSubscription.unsubscribe();
+    this.countrySubscroption.unsubscribe();
+
+    if (this.stateSubscription) {
+      this.stateSubscription.unsubscribe();
+    }
+
+    this.totalPriceSubscription.unsubscribe();
+    this.totalQuantitySubscription.unsubscribe();
+
+    if (this.placeOrderSubscription) {
+      this.placeOrderSubscription.unsubscribe();
+    }
   }
 
   get customerFirstName() {

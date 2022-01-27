@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OktaAuthStateService } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
-import { Observable, OperatorFunction } from 'rxjs';
+import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
@@ -12,7 +12,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   totalQuantity: number = 0;
 
   productNames: string[] = [];
@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit {
   userName: string = '';
   isAuthenticated: boolean = false;
   storage: Storage = sessionStorage;
+
+  shoppingCartSubscription!: Subscription;
+  productSubscription!: Subscription;
+  oktaAuthStateSubscription!: Subscription;
 
   constructor(private router: Router,
     private shoppingCartService: ShoppingCartService,
@@ -36,7 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserDetails() {
-    this.authStateService.authState$.subscribe((result) => {
+    this.oktaAuthStateSubscription = this.authStateService.authState$.subscribe((result) => {
       this.isAuthenticated = result.isAuthenticated!;
 
       // Fetch the logged in user details (user's claims)
@@ -64,13 +68,13 @@ export class HeaderComponent implements OnInit {
   }
 
   updateShoppingCartStatus() {
-    this.shoppingCartService.totalQuantity.subscribe(
+    this.shoppingCartSubscription = this.shoppingCartService.totalQuantity.subscribe(
       responseData => this.totalQuantity = responseData
     );
   }
 
   initSearchBarTypehead() {
-    this.productService.fetchProductsPaginate().subscribe(
+    this.productSubscription = this.productService.fetchProductsPaginate().subscribe(
       responseData => responseData.forEach(product => this.productNames.push(product.name))
     );
   }
@@ -86,5 +90,11 @@ export class HeaderComponent implements OnInit {
   logout() {
     // Termintaes the session with okta and removes current tokens
     this.oktaAuth.signOut();
+  }
+
+  ngOnDestroy(): void {
+    this.oktaAuthStateSubscription.unsubscribe();
+    this.productSubscription.unsubscribe();
+    this.shoppingCartSubscription.unsubscribe();
   }
 }

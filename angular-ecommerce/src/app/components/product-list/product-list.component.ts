@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -8,7 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products!: Product[];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
@@ -24,6 +25,10 @@ export class ProductListComponent implements OnInit {
 
   currentSortField: string = 'name';
   currentSortDirection: string = 'asc';
+
+  productSubscription!: Subscription;
+  productCategorySubscription!: Subscription;
+  searchProductSubscription!: Subscription;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute) {
@@ -66,12 +71,12 @@ export class ProductListComponent implements OnInit {
     }
 
     // Get the category name from category for the given category id
-    this.productService.fetchProductCategoryById(this.currentCategoryId).subscribe((responseData) => {
+    this.productCategorySubscription = this.productService.fetchProductCategoryById(this.currentCategoryId).subscribe((responseData) => {
       responseData ? this.currentCategoryName = responseData.categoryName : this.currentCategoryName = 'Books';
     });
 
     // Now we get the list of products and pagination info based on the category id, page number, and page size
-    this.productService.fetchProductsByCategoryIdPaginate(
+    this.productSubscription = this.productService.fetchProductsByCategoryIdPaginate(
       // Angular's pagination is 1 based, while Spring Data REST is 0 based
       this.currentPageNumber - 1,
       this.currentPageSize,
@@ -95,7 +100,7 @@ export class ProductListComponent implements OnInit {
     }
 
     // Now we get the list of products and pagination info based on the keyword, page number, and page size
-    this.productService.searchProductsByKeywordPaginate(
+    this.searchProductSubscription = this.productService.searchProductsByKeywordPaginate(
       this.currentPageNumber - 1,
       this.currentPageSize,
       this.currentKeyword,
@@ -126,5 +131,14 @@ export class ProductListComponent implements OnInit {
     this.currentPageNumber = 1;
 
     this.listProducts();
+  }
+
+  ngOnDestroy(): void {
+      if (this.searchProductSubscription) {
+        this.searchProductSubscription.unsubscribe;
+      } else {
+        this.productSubscription.unsubscribe();
+        this.productCategorySubscription.unsubscribe();
+      }
   }
 }

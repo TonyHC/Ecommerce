@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ShoppingCartItem } from 'src/app/common/shopping-cart-item';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
@@ -7,10 +8,13 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   templateUrl: './shopping-cart-details.component.html',
   styleUrls: ['./shopping-cart-details.component.css'],
 })
-export class ShoppingCartDetailsComponent implements OnInit {
+export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
   shoppingCartItems: ShoppingCartItem[] = [];
   totalPrice: number = 0;
   totalQuantity: number = 0;
+
+  totalPriceSubscription!: Subscription;
+  totalQuantitySubscription!: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
@@ -21,11 +25,11 @@ export class ShoppingCartDetailsComponent implements OnInit {
   listShoppingCartDetails() {
     this.shoppingCartItems = this.shoppingCartService.shoppingCartItems;
 
-    this.shoppingCartService.totalPrice.subscribe(
+    this.totalPriceSubscription = this.shoppingCartService.totalPrice.subscribe(
       (responseData) => (this.totalPrice = responseData)
     );
 
-    this.shoppingCartService.totalQuantity.subscribe(
+    this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(
       (responseData) => (this.totalQuantity = responseData)
     );
   }
@@ -40,5 +44,10 @@ export class ShoppingCartDetailsComponent implements OnInit {
 
   removeItemFromShoppingCart(shoppingCartItem: ShoppingCartItem) {
     this.shoppingCartService.removeItemFromShoppingCart(shoppingCartItem);
+  }
+
+  ngOnDestroy(): void {
+    this.totalPriceSubscription.unsubscribe();
+    this.totalQuantitySubscription.unsubscribe();
   }
 }
