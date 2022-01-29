@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription} from 'rxjs';
 import { OrderHistory } from 'src/app/common/order-history';
+import { ShoppingCartItem } from 'src/app/common/shopping-cart-item';
 import { OrderHistoryService } from 'src/app/services/order-history.service';
+import { ProductService } from 'src/app/services/product.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'app-order-history',
@@ -13,8 +16,11 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   storage: Storage = sessionStorage;
 
   orderHistorySubscription!: Subscription;
+  productSubscription!: Subscription;
 
-  constructor(private orderHistory: OrderHistoryService) {
+  constructor(private orderHistory: OrderHistoryService,
+    private productService: ProductService,
+    private shoppingCartService: ShoppingCartService) {
 
   }
 
@@ -32,7 +38,17 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     );
   }
 
+  onAddProductToShoppingCart(productId: string) {
+    this.productSubscription = this.productService.fetchProductByProductId(+productId).subscribe(
+      response => {
+        const shoppingCartItem = new ShoppingCartItem(response);
+        this.shoppingCartService.addItemToShoppingCart(shoppingCartItem);
+      }
+    );
+  }
+
   ngOnDestroy(): void {
     this.orderHistorySubscription.unsubscribe();
+    this.productSubscription.unsubscribe();
   }
 }

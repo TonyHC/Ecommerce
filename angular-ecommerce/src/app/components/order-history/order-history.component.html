@@ -78,6 +78,7 @@
             {{ orderItem.name }}
           </h6>
           <p>Quantity: {{ orderItem.quantity }}</p>
+          <button type="button" class="btn btn-outline-primary add-button" (click)="onAddProductToShoppingCart(orderItem.productId)">Add to cart</button>
         </div>
       </div>
     </li>
