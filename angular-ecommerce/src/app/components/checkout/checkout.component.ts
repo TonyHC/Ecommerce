@@ -153,8 +153,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     // Reset checkout form
     this.checkoutFormGroup.reset();
 
-    // Navigate back to products page
-    this.router.navigateByUrl("/products");
+    // Navigate back to order history page
+    this.router.navigateByUrl("/order-history");
   }
 
   copyShippingAddressToBillingAddress(inputEvent: Event) {
