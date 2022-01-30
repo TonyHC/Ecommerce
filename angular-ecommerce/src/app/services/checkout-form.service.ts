@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Country } from '../common/country';
-import { State } from '../common/state';
+import { Country } from '../models/country';
+import { State } from '../models/state';
 
 export interface countriesResponse {
   _embedded: {

@@ -2,15 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Country } from 'src/app/common/country';
-import { Order } from 'src/app/common/order';
-import { OrderItem } from 'src/app/common/order-item';
-import { Purchase } from 'src/app/common/purchase';
-import { State } from 'src/app/common/state';
+import { Country } from 'src/app/models/country';
+import { Order } from 'src/app/models/order';
+import { OrderItem } from 'src/app/models/order-item';
+import { Purchase } from 'src/app/models/purchase';
+import { State } from 'src/app/models/state';
 import { CheckoutFormService } from 'src/app/services/checkout-form.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
-import { notOnlyWhiteSpace } from 'src/app/shared/forbidden-whitespace.directive';
+import { notOnlyWhiteSpace } from 'src/app/shared/validators/forbidden-whitespace.directive';
 
 @Component({
   selector: 'app-checkout',

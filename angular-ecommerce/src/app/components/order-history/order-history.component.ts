@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription} from 'rxjs';
-import { OrderHistory } from 'src/app/common/order-history';
-import { ShoppingCartItem } from 'src/app/common/shopping-cart-item';
+import { OrderHistory } from 'src/app/models/order-history';
+import { ShoppingCartItem } from 'src/app/models/shopping-cart-item';
 import { OrderHistoryService } from 'src/app/services/order-history.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';

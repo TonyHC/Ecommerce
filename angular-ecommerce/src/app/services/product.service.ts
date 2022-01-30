@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Product } from '../common/product';
-import { ProductCategory } from '../common/product-category';
+import { Product } from '../models/product';
+import { ProductCategory } from '../models/product-category';
 
 // Unwraps the JSON from Spring Data REST _embedded entry
 export interface productResponse {

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OktaAuthStateService } from '@okta/okta-angular';
 import { Subscription } from 'rxjs';
-import { ProductCategory } from 'src/app/common/product-category';
+import { ProductCategory } from 'src/app/models/product-category';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
