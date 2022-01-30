@@ -49,6 +49,9 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.orderHistorySubscription.unsubscribe();
-    this.productSubscription.unsubscribe();
+
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
   }
 }
