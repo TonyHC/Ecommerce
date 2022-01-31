@@ -8,23 +8,25 @@ import { ShoppingCartItem } from '../models/shopping-cart-item';
 export class ShoppingCartService {
   shoppingCartItems: ShoppingCartItem[] = [];
 
-  // Make use of a BehaviorSubject instead of a Subject to subscribe to get the latest published data (totalPrice and totalQuantity)
+  // Make use of a BehaviorSubject instead of a Subject to subscribe to get the latest published data (totalPrice, totalQuantity and shoppingCartStatus)
   // for components that haven't been loaded or created yet when subscribed to BehvaiorSubject
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
+  shoppingCartStatus: Subject<boolean> = new BehaviorSubject<boolean>(true);
 
   storage: Storage = sessionStorage;
 
   constructor() {
-    // Read data from storage
-    let data = JSON.parse(this.storage.getItem('shoppingCartItems')!);
+    // Read data from web browser session storage
+    let cartItems = JSON.parse(this.storage.getItem('shoppingCartItems')!);
 
-    if (data != null) {
-      this.shoppingCartItems = data;
+    if (cartItems != null ) {
+      this.shoppingCartItems = cartItems;
     }
 
-    // Compute shopping cart totals on the data that is retrieved from storage
+    // Compute shopping cart totals and status on the data that is retrieved from storage
     this.computeShoppingCartTotals();
+    this.validShoppingCart();
   }
 
   addItemToShoppingCart(shoppingCartItem: ShoppingCartItem) {
@@ -51,8 +53,9 @@ export class ShoppingCartService {
       this.shoppingCartItems.push(shoppingCartItem);
     }
 
-    // Compute shopping cart total price and total quantity
+    // Compute shopping cart total price, total quantity and status
     this.computeShoppingCartTotals();
+    this.validShoppingCart();
   }
 
   private computeShoppingCartTotals() {
@@ -69,13 +72,30 @@ export class ShoppingCartService {
     this.totalPrice.next(totalItemPrices);
     this.totalQuantity.next(totalItemQuantity);
 
-    // Persist shopping cart data
+    // Persist shopping cart items data
     this.persistShoppingCartItems();
   }
 
   private persistShoppingCartItems() {
-    // Store current items within shopping cart in localStorage
+    // Store current items within shopping cart in session storage
     this.storage.setItem('shoppingCartItems', JSON.stringify(this.shoppingCartItems));
+  }
+
+  private validShoppingCart() {
+    let validCart: boolean = true;
+    let validShoppingCartItems: boolean[] = [];
+
+    // Iterate through each shopping cart item to determine if valid or not and store result
+    this.shoppingCartItems.forEach(shoppingCartItem => {
+      shoppingCartItem.product.unitsInStock - shoppingCartItem.quantity >= 0 ?
+        validShoppingCartItems.push(true) : validShoppingCartItems.push(false);
+    });
+
+    // If one shopping cart item is not valid, then the shopping cart is invalid. Otherwise, the shopping cart is valid
+    validShoppingCartItems.includes(false, 0) ? validCart = false : validCart = true;
+
+    // Publish shopping cart status
+    this.shoppingCartStatus.next(validCart);
   }
 
   decrementShoppingCartItemQuantity(shoppingCartItem: ShoppingCartItem) {
@@ -87,6 +107,7 @@ export class ShoppingCartService {
     } else {
       // Otherwise, update and publish new data to subscribers
       this.computeShoppingCartTotals();
+      this.validShoppingCart();
     }
   }
 
@@ -101,5 +122,6 @@ export class ShoppingCartService {
 
     // Update and publish new data to subscribers
     this.computeShoppingCartTotals();
+    this.validShoppingCart();
   }
 }
