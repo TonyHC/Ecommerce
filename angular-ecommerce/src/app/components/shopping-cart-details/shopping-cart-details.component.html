@@ -1,15 +1,20 @@
-<div *ngIf="shoppingCartItems.length === 0" class="alert alert-warning alert-dismissible fade show alert-width warning-message">
+<div *ngIf="shoppingCartItems.length === 0" class="alert alert-warning alert-dismissible fade show empty-cart-warning">
   <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
-    <strong>Your shopping cart is empty</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
-  </div>
+  <strong>Your shopping cart is empty</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
+</div>
+
+<div *ngIf="!validShoppingCart && shoppingCartItems.length !== 0" class="alert alert-warning alert-dismissible fade show limited-stock-warning">
+  <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
+  <strong>One or more items in your shopping cart exceeds the limited stock of item</strong>
+</div>
 
 <div *ngIf="shoppingCartItems.length > 0">
     <table class="table table-bordered">
       <thead>
         <tr>
           <td colspan="2" class="shopping-cart-heading"><strong style="font-size: 18px;">Shopping Cart</strong></td>
-          <td class="price-table-heading">Price</td>
+          <td class="price-table-heading"><strong>Price</strong></td>
         </tr>
       </thead>
       <tbody>
@@ -18,28 +23,36 @@
             <img src="{{shoppingCartItem.imageUrl}}" class="img-fluid cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}">
           </td>
           <td>
-            <p class="cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}">{{shoppingCartItem.name}}</p>
-            <p><strong>{{shoppingCartItem.unitPrice | currency: 'USD'}}</strong></p>
+            <h5 class="cursor-pointer mt-3" routerLink="/products/{{shoppingCartItem.id}}">{{shoppingCartItem.name}}</h5>
+            <div *ngIf="shoppingCartItem.product.unitsInStock > 0; else outOfStock">
+              <p class="in-stock">In Stock</p>
+            </div>
+            <ng-template #outOfStock>
+              <p class="out-of-stock">Out of Stock</p>
+            </ng-template>
+            <p style="margin-top: -10px; margin-bottom: 0px;"><strong>{{shoppingCartItem.unitPrice | currency: 'USD'}}</strong></p>
             <a class="remove-link cursor-pointer" (click)="removeItemFromShoppingCart(shoppingCartItem)">Remove</a>
           </td>
           <td style="text-align: end;">
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end mt-4">
               <i class="bi bi-plus-square-fill" (click)="onIncrementItemQuantity(shoppingCartItem)"></i>
               <p style="margin-left: 10px; margin-right: 10px;">Quantity: {{shoppingCartItem.quantity}}</p>
               <i class="bi bi-dash-square-fill" (click)="onDecrementItemQuantity(shoppingCartItem)"></i>
             </div>
 
-            <p>Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
+            <p style="margin-top: -10px;">Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
           </td>
         </tr>
 
-      <tr>
-        <td colspan="3" style="text-align: end;">
-          <p>Total Quantity: {{totalQuantity}}</p>
-          <p><strong>Price: {{totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
-          <a routerLink="/checkout" class="btn btn-outline-primary">Checkout</a>
-        </td>
-      </tr>
+        <tr>
+          <td colspan="3" style="text-align: end;">
+            <p>Total Quantity: {{totalQuantity}}</p>
+            <p style="margin-top: -15px;"><strong>Price: {{totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
+            <button type="button" class="btn btn-outline-primary" [disabled]="!validShoppingCart" (click)="onNavigateToCheckout()">
+              Checkout
+            </button>
+          </td>
+        </tr>
       </tbody>
 
     </table>

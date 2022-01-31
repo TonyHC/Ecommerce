@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ShoppingCartItem } from 'src/app/models/shopping-cart-item';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
@@ -12,11 +13,14 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
   shoppingCartItems: ShoppingCartItem[] = [];
   totalPrice: number = 0;
   totalQuantity: number = 0;
+  validShoppingCart!: boolean;
 
   totalPriceSubscription!: Subscription;
   totalQuantitySubscription!: Subscription;
+  shoppingCartStatusSubscription!: Subscription;
 
-  constructor(private shoppingCartService: ShoppingCartService) {}
+  constructor(private shoppingCartService: ShoppingCartService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.listShoppingCartDetails();
@@ -32,6 +36,10 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
     this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(
       (responseData) => (this.totalQuantity = responseData)
     );
+
+    this.shoppingCartStatusSubscription = this.shoppingCartService.shoppingCartStatus.subscribe(
+      response => this.validShoppingCart = response
+    );
   }
 
   onIncrementItemQuantity(shoppingCartItem: ShoppingCartItem) {
@@ -46,8 +54,13 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
     this.shoppingCartService.removeItemFromShoppingCart(shoppingCartItem);
   }
 
+  onNavigateToCheckout() {
+    this.router.navigateByUrl("/checkout");
+  }
+
   ngOnDestroy(): void {
     this.totalPriceSubscription.unsubscribe();
     this.totalQuantitySubscription.unsubscribe();
+    this.shoppingCartStatusSubscription.unsubscribe();
   }
 }
