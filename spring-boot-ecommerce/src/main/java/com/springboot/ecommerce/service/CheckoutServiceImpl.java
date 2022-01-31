@@ -3,10 +3,12 @@ package com.springboot.ecommerce.service;
 import com.springboot.ecommerce.entity.Customer;
 import com.springboot.ecommerce.entity.Order;
 import com.springboot.ecommerce.entity.OrderItem;
+import com.springboot.ecommerce.entity.Product;
 import com.springboot.ecommerce.repository.CustomerRepository;
 import com.springboot.ecommerce.dto.Purchase;
 import com.springboot.ecommerce.dto.PurchaseResponse;
 import com.springboot.ecommerce.repository.OrderRepository;
+import com.springboot.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class CheckoutServiceImpl implements CheckoutService {
     private final CustomerRepository customerRepository;
     private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
 
-    public CheckoutServiceImpl(CustomerRepository customerRepository, OrderRepository orderRepository) {
+    public CheckoutServiceImpl(CustomerRepository customerRepository, OrderRepository orderRepository, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -36,6 +40,9 @@ public class CheckoutServiceImpl implements CheckoutService {
         // Extract collection of order items data and add to order data
         Set<OrderItem> orderItems = purchase.getOrderItems();
         orderItems.forEach(item -> order.addOrderItem(item));
+
+        // Update the unit of stock for each product
+        updateProductUnitInStock(orderItems);
 
         // Extract and set the billing and shipping address data to order data
         order.setBillingAddress(purchase.getBillingAddress());
@@ -72,5 +79,13 @@ public class CheckoutServiceImpl implements CheckoutService {
         }
 
         return trackingNumber;
+    }
+
+    private void updateProductUnitInStock(Set<OrderItem> orderItems) {
+        orderItems.forEach(orderItem -> {
+            Product product = this.productRepository.getById(orderItem.getProductId());
+            product.setUnitsInStock(product.getUnitsInStock() - orderItem.getQuantity());
+            this.productRepository.save(product);
+        });
     }
 }
