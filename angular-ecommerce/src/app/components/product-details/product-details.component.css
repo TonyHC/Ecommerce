@@ -9,3 +9,11 @@
 button {
   width: fit-content;
 }
+
+.limited-stock {
+  font-size: 20px;
+  color: maroon;
+  font-weight: 550;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}

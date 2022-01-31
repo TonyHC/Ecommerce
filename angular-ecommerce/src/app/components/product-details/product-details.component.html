@@ -3,8 +3,8 @@
   <img src="{{product.imageUrl}}" class="img-fluid image-position" width="500">
   <div class="d-flex flex-column product-info">
     <h3>{{product.name}}</h3>
-    <p><strong>{{product.unitPrice | currency: 'USD'}}</strong></p>
-    <button class="btn btn-outline-primary" (click)="onAddProductToShoppingCart()">Add to cart</button>
+    <p style="margin-top: -5px;">List Price: <strong>{{product.unitPrice | currency: 'USD'}}</strong></p>
+    <p *ngIf="product.unitsInStock <= 25" class="limited-stock">Only {{product.unitsInStock}} left in stock</p>
     <div class="col-sm-8">
       <hr>
       <h4>Description</h4>
