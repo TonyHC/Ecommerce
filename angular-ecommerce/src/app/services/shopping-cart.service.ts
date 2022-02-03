@@ -108,6 +108,14 @@ export class ShoppingCartService {
     this.shoppingCartStatus.next(validCart);
   }
 
+  incrementShoppingCartItemQuantity(shoppingCartItem: ShoppingCartItem) {
+    shoppingCartItem.quantity++;
+
+    // Update and publish new data to subscribers
+    this.computeShoppingCartTotals();
+    this.validShoppingCart();
+  }
+
   decrementShoppingCartItemQuantity(shoppingCartItem: ShoppingCartItem) {
     shoppingCartItem.quantity--;
 

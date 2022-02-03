@@ -43,7 +43,7 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
   }
 
   onIncrementItemQuantity(shoppingCartItem: ShoppingCartItem) {
-    this.shoppingCartService.addItemToShoppingCart(shoppingCartItem);
+    this.shoppingCartService.incrementShoppingCartItemQuantity(shoppingCartItem);
   }
 
   onDecrementItemQuantity(shoppingCartItem: ShoppingCartItem) {
