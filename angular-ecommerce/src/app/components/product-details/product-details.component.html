@@ -5,6 +5,13 @@
     <h3>{{product.name}}</h3>
     <p style="margin-top: -5px;">List Price: <strong>{{product.unitPrice | currency: 'USD'}}</strong></p>
     <p *ngIf="product.unitsInStock <= 25" class="limited-stock">Only {{product.unitsInStock}} left in stock</p>
+    <div class="d-flex flex-row">
+      <select class="form-select me-4" style="width: 100px;" (change)="onUpdateProductQuantity($event)">
+        <option hidden>Qty: 1</option>
+        <option *ngFor="let opt of options" [value]="opt.value">{{opt.value}}</option>
+      </select>
+      <button class="btn btn-outline-primary" (click)="onAddProductToShoppingCart()">Add to cart</button>
+    </div>
     <div class="col-sm-8">
       <hr>
       <h4>Description</h4>

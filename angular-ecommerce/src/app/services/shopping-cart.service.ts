@@ -29,6 +29,16 @@ export class ShoppingCartService {
     this.validShoppingCart();
   }
 
+  populateProductQuantitySelectDropdown() {
+    let options: any[] = [];
+
+    for (let i = 1; i <= 10; i++) {
+      options.push({value: i});
+    }
+
+    return options;
+  }
+
   addItemToShoppingCart(shoppingCartItem: ShoppingCartItem) {
     // Check if we already have the item in the shopping cart
     let itemExistsInCart: boolean = false;
@@ -46,8 +56,8 @@ export class ShoppingCartService {
     }
 
     if (itemExistsInCart) {
-      // Increment the quantity of the item by one
-      existingShoppingCartItem!.quantity++;
+      // Increment the quantity of the item by corresponding added product quantity
+      existingShoppingCartItem!.quantity += shoppingCartItem.quantity;
     } else {
       // Otherwise just add the new item to the shopping cart
       this.shoppingCartItems.push(shoppingCartItem);

@@ -13,6 +13,8 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   product!: Product;
+  currentProductQuantity: number = 0;
+  options: any[] = [];
 
   productSubscription!: Subscription;
 
@@ -25,7 +27,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.handleProductDetails();
-    })
+    });
+
+    this.options = this.shoppingCartService.populateProductQuantitySelectDropdown();
   }
 
   handleProductDetails() {
@@ -36,10 +40,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  onAddProductToShoppingCart() {
-    const shoppingCartItem = new ShoppingCartItem(this.product);
-    this.shoppingCartService.addItemToShoppingCart(shoppingCartItem);
-  }
+	onAddProductToShoppingCart() {
+		let shoppingCartItem = new ShoppingCartItem(this.product);
+		shoppingCartItem.quantity = this.currentProductQuantity;
+
+		this.shoppingCartService.addItemToShoppingCart(shoppingCartItem);
+	}
+
+  onUpdateProductQuantity(inputEvent: Event) {
+		const productQuantity = +(inputEvent.currentTarget as HTMLInputElement).value;
+		this.currentProductQuantity = productQuantity;
+	}
 
   ngOnDestroy(): void {
     this.productSubscription.unsubscribe();
