@@ -20,7 +20,7 @@
       <tbody>
         <tr *ngFor="let shoppingCartItem of shoppingCartItems">
           <td style="width: 20%;">
-            <img src="{{shoppingCartItem.imageUrl}}" class="img-fluid cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}">
+            <img src="{{shoppingCartItem.imageUrl}}" class="cursor-pointer" routerLink="/products/{{shoppingCartItem.id}}" width="200">
           </td>
           <td>
             <h5 class="cursor-pointer mt-3" routerLink="/products/{{shoppingCartItem.id}}">{{shoppingCartItem.name}}</h5>

@@ -1,10 +1,10 @@
 .sidebar-nav {
-  margin-top: 75px;
+  margin-top: 69px;
   margin-left: -12px;
   width: 200px;
   overflow: hidden;
   position: fixed;
-  height: 90.5%;
+  height: 91.5%;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   scrollbar-width: thin;
   z-index: 100;
@@ -15,11 +15,14 @@
 }
 
 .active-link {
+  color: black;
   font-weight: bold;
+  background-color: rgb(188, 207, 243);
+  box-shadow: none;
 }
 
 .main-content {
-  margin-left: 14%;
+  margin-left: 250px;
   overflow-x: hidden;
 }
 

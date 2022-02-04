@@ -1,16 +1,15 @@
 <div class="container-fluid">
   <div class="flex-nowrap">
     <!--Sidebar-->
-    <div class="sidebar-nav">
+    <div class="sidebar-nav bg-white">
       <div class="d-flex flex-column">
-        <div
-          class="list-group list-group-flush list-group-hover">
+        <div class="list-group list-group-flush list-group-hover">
           <a
             class="list-group-item list-group-item-action"
             routerLink="/products"
             routerLinkActive="active-link">
             <i class="fs-4 bi-house"></i>
-            <span class="ms-2 d-none d-sm-inline">Home</span>
+            <span class="ms-2">Home</span>
           </a>
 
           <a
@@ -28,27 +27,30 @@
             id="submenu2">
             {{ productCategory.categoryName }}
           </a>
+
           <a
             routerLink="/shopping-cart"
             routerLinkActive="active-link"
             class="list-group-item list-group-item-action">
             <i class="bi bi-basket-fill" style="font-size: 24px;"></i>
-            <span class="ms-2 d-none d-sm-inline">Shopping Cart</span>
+            <span class="ms-2">Shopping Cart</span>
           </a>
 
           <a
             class="list-group-item disabled mt-4"
             *ngIf="isAuthenticated">
-            <span class="d-none d-sm-inline text-muted list-title">CUSTOMER</span>
+            <span class="text-muted list-title">CUSTOMER</span>
           </a>
+
           <a
             routerLink="/account"
             routerLinkActive="active-link"
             class="list-group-item list-group-item-action"
             *ngIf="isAuthenticated">
             <i class="bi bi-person-rolodex" style="font-size: 24px;"></i>
-            <span class="ms-2 d-none d-sm-inline">Account</span>
+            <span class="ms-2">Account</span>
           </a>
+
           <a
             routerLink="/order-history"
             routerLinkActive="active-link"
@@ -56,8 +58,9 @@
             *ngIf="isAuthenticated"
             style="margin-bottom: -170px">
             <i class="bi bi-calendar4" style="font-size: 24px;"></i>
-            <span class="ms-2 d-none d-sm-inline">Order History</span>
+            <span class="ms-2">Order History</span>
           </a>
+
         </div>
         <footer class="footer-section ms-3">
           <a href="#">About</a>
