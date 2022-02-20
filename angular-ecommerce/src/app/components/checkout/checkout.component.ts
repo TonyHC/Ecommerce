@@ -150,6 +150,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.shoppingCartService.totalPrice.next(0);
     this.shoppingCartService.totalQuantity.next(0);
 
+    // Remove all items added to shopping cart after the checkout process was successful
+    this.storage.removeItem('shoppingCartItems');
+
     // Reset checkout form
     this.checkoutFormGroup.reset();
 
