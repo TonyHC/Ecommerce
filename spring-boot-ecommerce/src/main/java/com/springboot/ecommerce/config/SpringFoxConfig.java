@@ -24,6 +24,7 @@ public class SpringFoxConfig {
                         .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
                         .build())
                 .tags(new Tag("Checkout", "Checkout API"))
+                .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(Predicate.not(PathSelectors.regex("/error.*")))
