@@ -1,59 +1,55 @@
-<nav class="navbar search-results mb-5" *ngIf="searchMode && products">
-  <div class="container-fluid">
-    <div class="ms-1">
-      <strong>{{totalElements}}</strong>&nbsp; results for &nbsp;<strong>"{{currentKeyword}}"</strong>
-    </div>
+  <nav class="navbar search-results mb-5" *ngIf="searchMode && products">
+    <div class="container-fluid">
+      <div class="ms-1">
+        <strong>{{totalElements}}</strong>&nbsp; results for &nbsp;<strong>"{{currentKeyword}}"</strong>
+      </div>
 
-    <div class="ms-auto me-1">
-      <select class="form-select" (change)="updateSortFields($event)">
-        <option>Default</option>
-        <option value="unitPrice,asc">Price (Lowest to Highest)</option>
-        <option value="unitPrice,desc">Price (Highest to Lowest)</option>
-        <option value="name,asc">Product (A-Z)</option>
-        <option value="name,desc">Product (Z-A)</option>
-      </select>
+      <div class="ms-auto me-1">
+        <select class="form-select" (change)="updateSortFields($event)">
+          <option>Default</option>
+          <option value="unitPrice,asc">Price (Lowest to Highest)</option>
+          <option value="unitPrice,desc">Price (Highest to Lowest)</option>
+          <option value="name,asc">Product (A-Z)</option>
+          <option value="name,desc">Product (Z-A)</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <div *ngIf="products?.length == 0" class="alert alert-warning alert-dismissible fade show alert-width result-message">
+    <i class="bi bi-exclamation-triangle-fill"></i> &nbsp;
+    <strong>No products found</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <h3 class="category-name mb-4" *ngIf="!searchMode">{{currentCategoryName}}</h3>
+
+  <div class="row ">
+    <div *ngFor="let product of products" class="col-3 product-detail-margins">
+      <a routerLink="/products/{{product.id}}">
+        <img src="{{product.imageUrl}}" class="img-fluid border image-background bg-light">
+      </a>
+      <h2 class="cursor-pointer mt-2" routerLink="/products/{{product.id}}">{{product.name | shorten: 33}}
+      </h2>
+      <a>
+        <p>{{product.unitPrice | currency: 'USD'}}</p>
+      </a>
     </div>
   </div>
-</nav>
 
-<div *ngIf="products?.length == 0" class="alert alert-warning alert-dismissible fade show alert-width result-message">
-  <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i> &nbsp;
-  <strong>No products found</strong>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 5px;"></button>
-</div>
-
-<h3 class="category-name mb-4" *ngIf="!searchMode">{{currentCategoryName}}</h3>
-
-<div class="row">
-  <div *ngFor="let product of products" class="col-3 product-detail-margins">
-    <a routerLink="/products/{{product.id}}">
-      <img src="{{product.imageUrl}}" class="img-fluid border image-background bg-light">
-    </a>
-    <h2 class="mt-2" routerLink="/products/{{product.id}}" style="cursor: pointer;">{{product.name | shorten: 33}}</h2>
-    <a>
-      <p>{{product.unitPrice | currency: 'USD'}}</p>
-    </a>
-  </div>
-</div>
-
-<div class="row justify-content-end pagination-controls" *ngIf="products?.length != 0">
+  <div class="row justify-content-end pagination-controls" *ngIf="products?.length != 0">
     <!--Pagination-->
     <div class="col-6">
-      <ngb-pagination
-        [collectionSize]="totalElements"
-        [(page)]="currentPageNumber"
-        [pageSize]="currentPageSize"
-        [maxSize]="5"
-        [boundaryLinks]="true"
-        (pageChange)="listProducts()">
+      <ngb-pagination [collectionSize]="totalElements" [(page)]="currentPageNumber" [pageSize]="currentPageSize"
+        [maxSize]="5" [boundaryLinks]="true" (pageChange)="listProducts()">
       </ngb-pagination>
     </div>
 
-    <div class="col-sm-1 page-size">
-      <select class="form-select form-select-sm" (change)="updatePageSize($event)">
+    <div class="col-sm-1 page-size-select">
+      <select class="form-select" (change)="updatePageSize($event)">
         <option selected="true">10</option>
         <option>20</option>
         <option>50</option>
       </select>
     </div>
-</div>
+  </div>
