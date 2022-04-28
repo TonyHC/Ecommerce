@@ -1,84 +1,54 @@
 <div class="container-fluid">
-  <div class="flex-nowrap">
-    <!--Sidebar-->
-    <div class="sidebar-nav bg-white">
-      <div class="d-flex flex-column">
-        <div class="list-group list-group-flush list-group-hover">
-          <a
-            class="list-group-item list-group-item-action"
-            routerLink="/products"
-            routerLinkActive="active-link">
-            <i class="fs-4 bi-house"></i>
-            <span class="ms-2">Home</span>
-          </a>
+  <!--Sidebar-->
+  <div class="sidebar-nav bg-white">
+    <div class="sidebar-content">
+      <div class="list-group list-group-flush list-group-hover">
+        <a class="list-group-item list-group-item-action" routerLink="/products" routerLinkActive="active-link">
+          <i class="fs-4 bi-house"></i>
+          <span class="ms-2">Home</span>
+        </a>
 
-          <a
-            class="d-flex flex-row list-group-item list-group-item-action"
-            href="#submenu2"
-            data-bs-toggle="collapse">
-            <i class="fs-4 bi bi-tags"></i>
-            <span class="ms-2 mt-2">Category</span>
-          </a>
-          <a
-            *ngFor="let productCategory of productCategories"
-            routerLink="/category/{{ productCategory.id }}"
-            routerLinkActive="active-link"
-            class="collapse list-group-item list-group-item-action"
-            id="submenu2">
-            {{ productCategory.categoryName }}
-          </a>
+        <a class="d-flex flex-row list-group-item list-group-item-action" href="#submenu2" data-bs-toggle="collapse">
+          <i class="fs-4 bi bi-tags"></i>
+          <span class="ms-2 mt-2">Category</span>
+        </a>
+        <a class="collapse list-group-item list-group-item-action" *ngFor="let productCategory of productCategories"
+          routerLink="/category/{{ productCategory.id }}" routerLinkActive="active-link" id="submenu2">
+          {{ productCategory.categoryName }}
+        </a>
 
-          <a
-            routerLink="/shopping-cart"
-            routerLinkActive="active-link"
-            class="list-group-item list-group-item-action">
-            <i class="bi bi-basket-fill" style="font-size: 24px;"></i>
-            <span class="ms-2">Shopping Cart</span>
-          </a>
+        <a class="list-group-item list-group-item-action"
+          routerLink="/shopping-cart"routerLinkActive="active-link">
+          <i class="bi bi-basket-fill"></i>
+          <span class="ms-2">Shopping Cart</span>
+        </a>
 
-          <a
-            class="list-group-item disabled mt-4"
-            *ngIf="isAuthenticated">
-            <span class="text-muted list-title">CUSTOMER</span>
-          </a>
+        <a class="list-group-item disabled mt-4" *ngIf="isAuthenticated">
+          <span class="text-muted list-title">CUSTOMER</span>
+        </a>
 
-          <a
-            routerLink="/account"
-            routerLinkActive="active-link"
-            class="list-group-item list-group-item-action"
-            *ngIf="isAuthenticated">
-            <i class="bi bi-person-rolodex" style="font-size: 24px;"></i>
-            <span class="ms-2">Account</span>
-          </a>
+        <a class="list-group-item list-group-item-action" *ngIf="isAuthenticated"
+          routerLink="/account" routerLinkActive="active-link">
+          <i class="bi bi-person-rolodex"></i>
+          <span class="ms-2">Account</span>
+        </a>
 
-          <a
-            routerLink="/order-history"
-            routerLinkActive="active-link"
-            class="list-group-item list-group-item-action"
-            *ngIf="isAuthenticated"
-            style="margin-bottom: -170px">
-            <i class="bi bi-calendar4" style="font-size: 24px;"></i>
-            <span class="ms-2">Order History</span>
-          </a>
-
-        </div>
-        <footer class="footer-section ms-3">
-          <a href="#">About</a>
-          <a
-            href="https://github.com/TonyHC/Ecommerce"
-            style="margin-left: 15px"
-            >Github</a>
-          <!-- Copyright -->
-          <div class="mt-2">
-            © 2022
-            <a class="text-reset">Tony Chao</a>
-          </div>
-        </footer>
+        <a class="list-group-item list-group-item-action"*ngIf="isAuthenticated"
+          routerLink="/order-history" routerLinkActive="active-link">
+          <i class="bi bi-calendar4"></i>
+          <span class="ms-2">Order History</span>
+        </a>
       </div>
+
+      <footer class="footer-section">
+        <a href="https://github.com/TonyHC/Ecommerce" class="fw-bold mb-3">Github</a>
+        <!-- Copyright -->
+        <div> © 2022 <a class="text-muted">Tony Chao</a></div>
+      </footer>
     </div>
-    <div class="col d-flex flex-column min-vh-100 main-content">
-      <!--Main Content-->
-      <router-outlet></router-outlet>
-    </div>
+  </div>
+  <div class="col d-flex flex-column min-vh-100 main-content">
+    <!--Main Content-->
+    <router-outlet></router-outlet>
   </div>
 </div>
