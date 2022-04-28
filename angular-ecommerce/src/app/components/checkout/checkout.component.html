@@ -309,7 +309,7 @@
       <h4 class="form-heading">Review Your Order</h4> <hr/>
 
       <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
-      <p>Total Price: <strong>{{ totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
+      <p>Total Price: <strong>{{ totalPrice | currency: 'USD'}}</strong></p>
 
       <!--Submit Button-->
       <button type="submit" class="btn btn-primary mt-3" [disabled]="!checkoutFormGroup.valid">

@@ -15,7 +15,7 @@
 
     <div class="ms-5">
       Total Price: <br />
-      {{ orderHistoryItem.totalPrice | number: "1.0-2" | currency: "USD" }}
+      {{ orderHistoryItem.totalPrice | currency: "USD" }}
     </div>
 
     <ng-template #customerInfo>

@@ -41,14 +41,14 @@
               <i class="bi bi-dash-square-fill" (click)="onDecrementItemQuantity(shoppingCartItem)"></i>
             </div>
 
-            <p class="subtotal-margin">Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
+            <p class="subtotal-margin">Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | currency: 'USD'}}</strong></p>
           </td>
         </tr>
 
         <tr>
           <td colspan="3" class="detail-price-align">
             <p>Total Quantity: {{totalQuantity}}</p>
-            <p class="total-price-margin"><strong>Price: {{totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
+            <p class="total-price-margin"><strong>Price: {{totalPrice | currency: 'USD'}}</strong></p>
             <button type="button" class="btn btn-outline-primary" [disabled]="!validShoppingCart" (click)="onNavigateToCheckout()">
               Checkout
             </button>
