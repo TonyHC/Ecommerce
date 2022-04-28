@@ -1,44 +1,41 @@
-<table *ngIf="product">
-  <tbody>
-    <tr>
-      <td>
-        <img src="{{ product.imageUrl }}" class="image-position" width="450" />
-      </td>
-      <td>
-        <div class="d-flex flex-column product-info">
+<div class="container">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-8 col-lg-6 col-xl-5">
+        <img src="{{ product.imageUrl }}" alt="{{product.name}}" class="img-fluid"/>
+      </div>
+
+      <div class="col-md-10 col-lg-6 col-xl-6">
+        <div class="card-body mt-3">
           <h3>{{ product.name }}</h3>
-          <p style="margin-top: -5px">
+          <p class="list-price-margin">
             List Price:
             <strong>{{ product.unitPrice | currency: "USD" }}</strong>
           </p>
+
           <p *ngIf="product.unitsInStock <= 25" class="limited-stock">
             Only {{ product.unitsInStock }} left in stock
           </p>
-          <div class="d-flex flex-row">
-            <select
-              class="form-select me-4"
-              style="width: 100px"
-              (change)="onUpdateProductQuantity($event)"
-            >
+
+          <div class="row">
+            <select class="form-select product-quantity-select" (change)="onUpdateProductQuantity($event)">
               <option hidden>Qty: 1</option>
               <option *ngFor="let opt of options" [value]="opt.value">
                 {{ opt.value }}
               </option>
             </select>
-            <button
-              class="btn btn-outline-primary"
-              (click)="onAddProductToShoppingCart()"
-            >
+
+            <button class="btn btn-outline-primary" (click)="onAddProductToShoppingCart()">
               Add to cart
             </button>
           </div>
-          <div class="col-sm-8">
-            <hr />
-            <h4>Description</h4>
-            <p>{{ product.description }}</p>
-          </div>
+
+          <hr />
+
+          <h4>Description</h4>
+          <p>{{ product.description }}</p>
         </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+      </div>
+    </div>
+  </div>
+</div>

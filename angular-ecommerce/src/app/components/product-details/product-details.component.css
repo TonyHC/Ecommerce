@@ -1,13 +1,14 @@
-.product-info {
-  margin-top: 110px;
-}
-
-.image-position {
-  margin-top: 100px;
-}
-
 button {
   width: fit-content;
+}
+
+.card {
+  margin-top: 100px;
+  border: none;
+}
+
+.btn-outline-primary, .form-select {
+  margin: 0 10px;
 }
 
 .limited-stock {
@@ -16,4 +17,12 @@ button {
   font-weight: 550;
   margin-top: -15px;
   margin-bottom: 10px;
+}
+
+.list-price-margin {
+  margin-top: -5px
+}
+
+.product-quantity-select {
+  width: 100px;
 }
