@@ -1,69 +1,69 @@
-<nav class="navbar navbar-expand fixed-top navbar-light bg-white" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;">
+<nav class="navbar navbar-expand fixed-top navbar-light bg-white">
   <div class="container-fluid">
-    <div class="box">
-      <img src="assets/images/logo.png" routerLink="/products" alt="logo" class="img-fluid logo">
+    <div class="nav-logo-outline">
+      <img src="assets/images/logo.png" routerLink="/products" alt="logo" class="img-fluid nav-logo cursor-pointer">
     </div>
 
-      <div class="collapse navbar-collapse">
-          <div class="input-group me-auto ms-auto">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search for products"
-              #searchInput
-              (keyup.enter)="onSearchProducts(searchInput.value)"
-              [ngbTypeahead]="search"
-              style="border: 1px solid black;">
+    <div class="collapse navbar-collapse">
+        <div class="input-group me-auto ms-auto search-bar">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search for products"
+            #searchInput
+            (keyup.enter)="onSearchProducts(searchInput.value)"
+            [ngbTypeahead]="search">
 
-            <button
-              class="btn btn-outline-dark" placement="bottom" ngbTooltip="Search"
-              (click)="onSearchProducts(searchInput.value)">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-
-          <button *ngIf="!isAuthenticated" routerLink="/login" class="btn me-4" type="button" placement="bottom" ngbTooltip="Login">
-            <div class="d-flex flex-row">
-              <i class="bi bi-person-badge-fill" style="font-size: 24px;"></i>
-              <div class="login-position">
-                Login
-              </div>
-            </div>
+          <button
+            class="btn btn-outline-dark" placement="bottom" ngbTooltip="Search"
+            (click)="onSearchProducts(searchInput.value)">
+            <i class="bi bi-search"></i>
           </button>
-
-          <div class="dropdown" *ngIf="isAuthenticated && userName">
-            <a href="#" class="d-flex align-items-center me-5 text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fs-4 bi bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline"></span>
-                <span class="d-none d-sm-inline mx-1">{{userName}}</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li>
-                  <a routerLink="/account" class="nav-link px-0 align-middle dropdown-item">
-                    <i class="bi bi-person-rolodex ms-3"></i> <span class="ms-2 d-none d-sm-inline">Account</span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/order-history" class="nav-link px-0 align-middle dropdown-item">
-                    <i class="bi bi-calendar4 ms-3"></i> <span class="ms-2 d-none d-sm-inline">Order History</span>
-                  </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                  <a class="nav-link px-0 align-middle dropdown-item" (click)="logout()" style="cursor: pointer;">
-                    <i class="bi bi-box-arrow-in-right ms-3"></i> <span class="ms-2 d-none d-sm-inline">Sign out</span>
-                  </a>
-                </li>
-            </ul>
         </div>
 
-          <div class="position-relative">
-            <span class="position-absolute translate-middle ms-3 mt-1">
-              <strong>{{totalQuantity}}</strong>
-            </span>
-            <a routerLink="/shopping-cart"><i class="bi bi-cart me-3" style="font-size: 30px;" href="#"></i></a>
+        <button *ngIf="!isAuthenticated" routerLink="/login" class="btn me-4" type="button" placement="bottom" ngbTooltip="Login">
+          <div class="d-flex flex-row">
+            <i class="bi bi-person-badge-fill"></i>
+            <div class="login-position">
+              Login
+            </div>
           </div>
+        </button>
+
+        <div class="dropdown" *ngIf="isAuthenticated && userName">
+          <a href="#" class="d-flex align-items-center me-5 text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fs-4 bi bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline"></span>
+              <span class="d-none d-sm-inline mx-1">{{userName}}</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li>
+                <a routerLink="/account" class="nav-link px-0 align-middle dropdown-item">
+                  <i class="bi bi-person-rolodex ms-3"></i> <span class="ms-2 d-none d-sm-inline">Account</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/order-history" class="nav-link px-0 align-middle dropdown-item">
+                  <i class="bi bi-calendar4 ms-3"></i> <span class="ms-2 d-none d-sm-inline">Order History</span>
+                </a>
+              </li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="nav-link px-0 align-middle dropdown-item cursor-pointer" (click)="logout()">
+                  <i class="bi bi-box-arrow-in-right ms-3"></i> <span class="ms-2 d-none d-sm-inline">Sign out</span>
+                </a>
+              </li>
+          </ul>
       </div>
+
+      <div class="position-relative">
+        <span class="position-absolute translate-middle ms-3 mt-1">
+          <strong>{{totalQuantity}}</strong>
+        </span>
+        <a routerLink="/shopping-cart"><i class="bi bi-cart me-3" href="#"></i></a>
+      </div>
+    </div>
   </div>
 </nav>

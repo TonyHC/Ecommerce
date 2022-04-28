@@ -1,3 +1,35 @@
+a {
+  color: black;
+}
+
+::ng-deep .dropdown-menu {
+  width: 100%;
+}
+
+.bi-cart {
+  font-size: 30px;
+}
+
+.bi-person-badge-fill {
+  font-size: 24px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.input-group {
+  width: 50%;
+}
+
+.input-group:target, .search-bar {
+  border: 1px solid black;
+}
+
+.navbar {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
 .nav-link:hover {
   font-weight: bold;
 }
@@ -6,60 +38,22 @@
   transition: all 0.3s
 }
 
-.link:hover {
-  font-weight: bold;
-}
-
-.link {
-  transition: all 0.3s
-}
-
-a {
-  color: black;
-}
-
-a:hover {
-  font-weight: 600;
-}
-
-.input-group {
-  width: 50%;
-}
-
-.input-group:target {
-  border: 1px solid black;
-}
-
-.active-link {
-  font-weight: bold;
-}
-
-.logo {
+.nav-logo {
   width: 125px;
-  cursor: pointer;
   margin-left: 10px;
 }
 
-.box {
+.nav-logo-outline {
   width: 150px;
 }
 
-.box:hover{
+.nav-logo-outline:hover{
   -moz-box-shadow: 0 0 10px #ccc;
   -webkit-box-shadow: 0 0 10px #ccc;
   box-shadow: 0 0 10px #ccc;
 }
 
-.login-position {
+.login-position, .logout-position {
   margin-top: 6px;
   margin-left: 3px;
-}
-
-.logout-position {
-  margin-top: 6px;
-  margin-left: 3px;
-}
-
-::ng-deep .dropdown-menu {
-  width: 100%;
 }

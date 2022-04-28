@@ -2,13 +2,12 @@
   <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
     <!--Customer Form Group-->
     <div formGroupName="customer" class="form-area">
-      <h4 style="font-weight: 550">Customer</h4>
-      <hr />
+      <h4 class="form-heading">Customer</h4> <hr/>
 
       <div class="row g-5 align-items-center">
         <div class="col-6">
           <label class="form-label mt-3">First Name</label>
-          <input formControlName="firstName" class="form-control" type="text" />
+          <input formControlName="firstName" class="form-control" type="text"/>
 
           <div *ngIf="customerFirstName.invalid && (customerFirstName.dirty || customerFirstName.touched)" class="alert alert-danger mt-2">
             <div *ngIf="customerFirstName.errors?.['required'] || customerFirstName.errors?.['notOnlyWhiteSpace']">
@@ -21,7 +20,7 @@
         </div>
         <div class="col-6">
           <label class="form-label mt-3">Last Name</label>
-          <input formControlName="lastName" class="form-control" type="text" />
+          <input formControlName="lastName" class="form-control" type="text"/>
 
           <div *ngIf="customerLastName.invalid && (customerLastName.dirty || customerLastName.touched)" class="alert alert-danger mt-2">
             <div *ngIf="customerLastName.errors?.['required'] || customerLastName.errors?.['notOnlyWhiteSpace']">
@@ -35,7 +34,7 @@
       </div>
 
       <label class="form-label mt-3">Email</label>
-      <input formControlName="email" class="form-control" type="text" />
+      <input formControlName="email" class="form-control" type="text"/>
 
       <div *ngIf="customerEmail.invalid && (customerEmail.dirty || customerEmail.touched)" class="alert alert-danger mt-2">
         <div *ngIf="customerEmail.errors?.['required']">
@@ -49,8 +48,7 @@
 
     <!--Shipping Address Form Group-->
     <div formGroupName="shippingAddress" class="form-area">
-      <h4 style="font-weight: 550">Shipping Address</h4>
-      <hr />
+      <h4 class="form-heading">Shipping Address</h4> <hr/>
 
       <label class="form-label mt-3">Country</label>
       <select
@@ -69,7 +67,7 @@
       </div>
 
       <label class="form-label mt-3">Street</label>
-      <input formControlName="street" class="form-control" type="text" />
+      <input formControlName="street" class="form-control" type="text"/>
 
       <div *ngIf="shippingAddressStreet.invalid && (shippingAddressStreet.dirty || shippingAddressStreet.touched)" class="alert alert-danger mt-2">
         <div *ngIf="shippingAddressStreet.errors?.['required'] || shippingAddressStreet.errors?.['notOnlyWhiteSpace']">
@@ -83,7 +81,7 @@
       <div class="row g-5 align-items-center">
         <div class="col-4">
           <label class="form-label mt-3">City</label>
-          <input formControlName="city" class="form-control" type="text" />
+          <input formControlName="city" class="form-control" type="text"/>
 
           <div *ngIf="shippingAddressCity.invalid && (shippingAddressCity.dirty || shippingAddressCity.touched)" class="alert alert-danger mt-2">
             <div *ngIf="shippingAddressCity.errors?.['required'] || shippingAddressCity.errors?.['notOnlyWhiteSpace']">
@@ -111,9 +109,10 @@
             </div>
           </div>
         </div>
+
         <div class="col-4">
           <label class="form-label mt-3">Zip Code</label>
-          <input formControlName="zipCode" class="form-control" type="text" />
+          <input formControlName="zipCode" class="form-control" type="text"/>
 
           <div *ngIf="shippingAddressZipCode.invalid && (shippingAddressZipCode.dirty || shippingAddressZipCode.touched)" class="alert alert-danger mt-2">
             <div *ngIf="shippingAddressZipCode.errors?.['required'] || shippingAddressZipCode.errors?.['notOnlyWhiteSpace']">
@@ -129,12 +128,11 @@
 
     <!--Billing Address Form Group-->
     <div formGroupName="billingAddress" class="form-area">
-      <h4 style="font-weight: 550">Billing Address</h4>
-      <input
-        type="checkbox"
-        (change)="copyShippingAddressToBillingAddress($event)"/>
-      <span> Same as shipping address</span>
-      <hr />
+      <h4 class="form-heading">Billing Address</h4>
+
+      <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)"/>
+
+      <span> Same as shipping address</span> <hr/>
 
       <label class="form-label mt-3">Country</label>
       <select
@@ -167,7 +165,7 @@
       <div class="row g-5 align-items-center">
         <div class="col-4">
           <label class="form-label mt-3">City</label>
-          <input formControlName="city" class="form-control" type="text" />
+          <input formControlName="city" class="form-control" type="text"/>
 
           <div *ngIf="billingAddressCity.invalid && (billingAddressCity.dirty || billingAddressCity.touched)" class="alert alert-danger mt-2">
             <div *ngIf="billingAddressCity.errors?.['required'] || billingAddressCity.errors?.['notOnlyWhiteSpace']">
@@ -178,6 +176,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-4">
           <label class="form-label mt-3">State</label>
           <select formControlName="state" class="form-select">
@@ -194,9 +193,10 @@
             </div>
           </div>
         </div>
+
         <div class="col-4">
           <label class="form-label mt-3">Zip Code</label>
-          <input formControlName="zipCode" class="form-control" type="text" />
+          <input formControlName="zipCode" class="form-control" type="text"/>
 
           <div *ngIf="billingAddressZipCode.invalid && (billingAddressZipCode.dirty || billingAddressZipCode.touched)" class="alert alert-danger mt-2">
             <div *ngIf="billingAddressZipCode.errors?.['required'] || billingAddressZipCode.errors?.['notOnlyWhiteSpace']">
@@ -212,8 +212,7 @@
 
     <!--Credit Card Form Group-->
     <div formGroupName="creditCard" class="form-area">
-      <h4 style="font-weight: 550">Credit Card</h4>
-      <hr />
+      <h4 class="form-heading">Credit Card</h4> <hr/>
 
       <div class="row g-5 align-items-center">
         <div class="col-8">
@@ -235,6 +234,7 @@
               Card number must be valid
             </div>
         </div>
+
         <div class="col-4">
           <label class="form-label mt-3">Card Type</label>
           <select formControlName="cardType" class="form-select">
@@ -253,10 +253,7 @@
       <div class="row g-5 align-items-center">
         <div class="col-8">
           <label class="form-label mt-3">Name</label>
-          <input
-            formControlName="nameOnCard"
-            class="form-control"
-            type="text"/>
+          <input formControlName="nameOnCard" class="form-control" type="text"/>
 
             <div *ngIf="creditCardNameOnCard.invalid && (creditCardNameOnCard.dirty || creditCardNameOnCard.touched)" class="alert alert-danger mt-2">
               <div *ngIf="creditCardNameOnCard.errors?.['required'] || creditCardNameOnCard.errors?.['notOnlyWhiteSpace']">
@@ -267,12 +264,11 @@
               </div>
             </div>
         </div>
+
         <div class="col-4">
           <label class="form-label mt-3">Security Code</label>
           <input
-            formControlName="securityCode"
-            class="form-control"
-            type="text"/>
+            formControlName="securityCode" class="form-control" type="text"/>
 
             <div *ngIf="creditCardSecurityCode.invalid && (creditCardSecurityCode.dirty || creditCardSecurityCode.touched)" class="alert alert-danger mt-2">
               <div *ngIf="creditCardSecurityCode.errors?.['required']">
@@ -310,18 +306,15 @@
     </div>
 
     <div class="form-area mb-5">
-      <h4 style="font-weight: 550">Review Your Order</h4>
-      <hr />
+      <h4 class="form-heading">Review Your Order</h4> <hr/>
 
       <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
       <p>Total Price: <strong>{{ totalPrice | number: '1.0-2' | currency: 'USD'}}</strong></p>
 
       <!--Submit Button-->
-      <div>
-        <button type="submit" class="btn btn-primary mt-3" [disabled]="!checkoutFormGroup.valid">
-          Confirm Purchase
-        </button>
-      </div>
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="!checkoutFormGroup.valid">
+        Confirm Purchase
+      </button>
     </div>
   </form>
 </div>

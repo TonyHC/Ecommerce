@@ -1,7 +1,30 @@
-.result-message {
-  margin-top: 100px;
-  margin-bottom: -50px;
-  width: 97.5%;
+img, h6, .cursor-pointer {
+  cursor: pointer;
+}
+
+p {
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.add-button {
+  margin-top: -10px;
+}
+
+.bi-caret-down-fill {
+  font-size: 12px
+}
+
+.bi-exclamation-triangle-fill {
+  font-size: 20px
+}
+
+.btn-close {
+  margin-top: 5px;
+}
+
+.order-item-image {
+  width: 150px;
 }
 
 .orders-content {
@@ -17,16 +40,8 @@
   margin-left: 100px;
 }
 
-img, h6 {
-  cursor: pointer;
-}
-
-p {
-  font-size: 14px;
-  margin-top: -5px;
-}
-
-.add-button {
-  margin-top: -10px;
-  width: 150px;
+.result-message {
+  margin-top: 100px;
+  margin-bottom: -50px;
+  width: 97.5%;
 }
