@@ -22,8 +22,10 @@ p {
   font-weight: 600;
 }
 
-.alert-width {
+.alert-warning {
   width: 96.8%;
+  margin-top: 100px;
+  margin-bottom: -50px;
 }
 
 .bi-exclamation-triangle-fill {
@@ -58,11 +60,6 @@ p {
   margin-bottom: 25px;
   margin-right: -80px;
   width: 388px;
-}
-
-.result-message {
-  margin-top: 100px;
-  margin-bottom: -50px;
 }
 
 .search-results {
