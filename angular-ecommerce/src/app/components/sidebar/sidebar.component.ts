@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   productCategories!: ProductCategory[];
+  currentYear: number = new Date().getFullYear();
   isAuthenticated: boolean = false;
   storage: Storage = sessionStorage;
 
