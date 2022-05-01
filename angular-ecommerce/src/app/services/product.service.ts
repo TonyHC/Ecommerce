@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,17 +35,16 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   fetchProductsPaginate() {
-    const searchUrl = `${this.productsUrl}?size=100`;
-
     return this.httpClient
-      .get<productResponse>(searchUrl)
+      .get<productResponse>(`${this.productsUrl}`, { params: new HttpParams().set('size', 100) })
       .pipe(map((response) => response._embedded.products));
   }
 
   fetchProductsByCategoryId(categoryId: number): Observable<Product[]> {
-    const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`;
+    const searchUrl = `${this.productsUrl}/search/findByCategoryId`;
+    let searchParams = new HttpParams().set('id', categoryId);
 
-    return this.retrieveProducts(searchUrl);
+    return this.retrieveProducts(searchUrl, searchParams);
   }
 
   fetchProductsByCategoryIdPaginate(
@@ -53,11 +52,15 @@ export class ProductService {
     currentPageSize: number,
     categoryId: number
   ): Observable<productResponse> {
-    const searchUrl =
-      `${this.productsUrl}/search/findByCategoryId?id=${categoryId}` +
-      `&page=${currentPage}&size=${currentPageSize}`;
+    let searchParams = new HttpParams({
+      fromObject: {
+        id: categoryId,
+        page: currentPage,
+        size: currentPageSize
+      }
+    });
 
-    return this.httpClient.get<productResponse>(searchUrl);
+    return this.httpClient.get<productResponse>(`${this.productsUrl}/search/findByCategoryId`, { params: searchParams });
   }
 
   fetchProductCategories(): Observable<ProductCategory[]> {
@@ -73,9 +76,10 @@ export class ProductService {
   }
 
   searchProductsByKeyword(keyword: string): Observable<Product[]> {
-    const searchUrl = `${this.productsUrl}/search/findByNameContaining?keyword=${keyword}`;
+    const searchUrl = `${this.productsUrl}/search/findByNameContaining`;
+    let searchParams = new HttpParams().set('keyword', keyword);
 
-    return this.retrieveProducts(searchUrl);
+    return this.retrieveProducts(searchUrl, searchParams);
   }
 
   searchProductsByKeywordPaginate(
@@ -85,16 +89,21 @@ export class ProductService {
     sortField: string,
     sortDirection: string
   ): Observable<productResponse> {
-    const searchUrl =
-      `${this.productsUrl}/search/findByNameContaining?keyword=${keyword}` +
-      `&page=${currentPage}&size=${currentPageSize}&sort=${sortField},${sortDirection}`;
+    let searchParams = new HttpParams({
+      fromObject: {
+        keyword: keyword,
+        page: currentPage,
+        size: currentPageSize,
+        sort: `${sortField},${sortDirection}`,
+      }
+    })
 
-    return this.httpClient.get<productResponse>(searchUrl);
+    return this.httpClient.get<productResponse>(`${this.productsUrl}/search/findByNameContaining`, { params: searchParams });
   }
 
-  private retrieveProducts(searchUrl: string): Observable<Product[]> {
+  private retrieveProducts(searchUrl: string, queryParams: HttpParams): Observable<Product[]> {
     return this.httpClient
-      .get<productResponse>(searchUrl)
+      .get<productResponse>(searchUrl, { params: queryParams })
       .pipe(map((response) => response._embedded.products));
   }
 

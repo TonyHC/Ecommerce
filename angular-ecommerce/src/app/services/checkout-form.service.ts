@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -34,11 +34,12 @@ export class CheckoutFormService {
   }
 
   getStates(countryCode: string): Observable<State[]> {
-    const searchStatesUrl = `${this.statesUrl}/search/findByCountryCode?code=${countryCode}`;
-
-    return this.http.get<statesResponse>(searchStatesUrl).pipe(
-      map(responseData => responseData._embedded.states)
-    );
+    return this.http.get<statesResponse>(`${this.statesUrl}/search/findByCountryCode`, {
+        params: new HttpParams().set('code', countryCode)
+      })
+      .pipe(
+        map(responseData => responseData._embedded.states)
+      );
   }
 
   getCreditCardMonths(startMonth: number): Observable<number[]> {

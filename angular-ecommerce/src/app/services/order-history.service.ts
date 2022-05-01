@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,11 +21,12 @@ export class OrderHistoryService {
 
   }
 
-  fetchOrderHistory(userEmail: string): Observable<OrderHistory[]> {
-    const orderHistoryUr = this.ordersUrl + `/search/findByCustomerEmailOrderByDateCreatedDesc?email=${userEmail}`;
-
-    return this.http.get<orderHistoryResponse>(orderHistoryUr).pipe(
-      map(responseData => responseData._embedded.orders)
-    );
+  fetchOrderHistory(userEmail: string): Observable < OrderHistory[] > {
+    return this.http.get<orderHistoryResponse>(`${this.ordersUrl}/search/findByCustomerEmailOrderByDateCreatedDesc`, {
+        params: new HttpParams().set('email', userEmail)
+      })
+      .pipe(
+        map(responseData => responseData._embedded.orders)
+      );
   }
 }
