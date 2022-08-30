@@ -1,0 +1,49 @@
+services:
+  mysql:
+    build: ./database
+    container_name: mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    expose:
+      - 3308
+    networks:
+      - mysql
+    restart: always
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - "8080:80"
+    networks:
+      - mysql
+    depends_on:
+      - mysql
+    restart: always
+  eCommerce:
+    image: tchao98/ecommerce:latest
+    container_name: eCommerce
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8443:8443"
+    networks:
+      - mysql
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+networks:
+  mysql:
+    driver: bridge
+
+volumes:
+  mysql:
