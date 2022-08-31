@@ -2,25 +2,43 @@
 
 Full stack web application using Angular 13 and Spring Boot 2
 
-- Angular along with Bootstrap 5, HTML and CSS as the frontend
+- Angular with Bootstrap 5, HTML, and CSS as the frontend
 
 - Create a REST API using Spring Boot that communicates with MySQL as the backend
 
 - Utilize Okta along with Spring Security for authentication and authorization services
 
-## How to visit web application hosted by Heroku
+## How to run this web application and its required services on Docker
+
+**Prerequisites**
+- Clone or download this repository through your preferred method
+
+- Make sure you have Docker or Docker Desktop installed on your machine
+
+- Open your preferred terminal and change to the directory containing the docker-compose.yml
+	- Enter the following Docker command: `docker compose up -d` to create the required containers
+	- Wait for the containers to be built and finish running
+
+<br>**Docker containers are up and running**
+- Visit [phpMyAdmin](http://localhost:8080) to access the GUI for MySQL and log in with the following credentials:
+	- `Username: root`
+	- `Password: password`
+
+- Head to [eCommerce](http://localhost:8443) to access the web application
+
+## How to visit the web application hosted by Heroku
 - Head to https://ecom-store-app.herokuapp.com/products to check out the web application
 
-- Ecommerce web application is hosted on [Heroku](https://devcenter.heroku.com/) with the [ClearDB MySQL](https://devcenter.heroku.com/articles/cleardb) addon to store data on the cloud
+- The eCommerce web application is hosted on [Heroku](https://devcenter.heroku.com/) with the [ClearDB MySQL](https://devcenter.heroku.com/articles/cleardb) addon to store data on the cloud
 
 ## Features
 **Regular User**
-- View a list of products (pagination implemented with help of [ng-bootstrap](https://ng-bootstrap.github.io/#/home)): 
-  - Click on categories listed in navigation sidebar
-  - Searching the product's name at searchbar in navigation bar
+- View a list of products (pagination implemented with the help of [ng-bootstrap](https://ng-bootstrap.github.io/#/home)): 
+  - Click on categories listed in the navigation sidebar
+  - Searching the product's name through the search bar in the navigation bar
 
 - Change the number of products displayed on each page (default 10 per page)
-  - Click on dropdown on bottom-right corner and select an option
+  - Click on the dropdown in the bottom-right corner and select an option
 
 - Adjust how the search result for a list of products gets sorted
   - The default sort is by the product's name in ascending order (*only for searching*)
@@ -30,43 +48,29 @@ Full stack web application using Angular 13 and Spring Boot 2
 
 - Add *x* quantity of a product to the shopping cart from the specific product detail page (from 1 to 10)
 
-- View all the items added to cart in shopping cart page
-  - A alert message appears if no products were added to the shopping cart
-  - A warning message appears if the quantity for a product exceeds the current stock available and checkout button is disabled
+- View all the items added to the cart on the shopping cart page
+  - An alert message appears if the shopping cart is empty
+  - A warning message appears if the quantity for a product exceeds the current stock available and the checkout button is disabled
 
-- Update each individual item in shopping cart by either removing the item from cart or by modifying the quantity
+- Update each item in the shopping cart by either removing the item from the cart or modifying the quantity
 
-- Sign up or login to ecommerce web app through the Okta Sign-In Widget by clicking on the login button found in navigation bar
+- Sign up or log in to the eCommerce web app through the Okta Sign-In Widget by clicking on the login button found in the navigation bar
 
-- Restrict access to checkout, account info and order history page unless your a valid user
+- Restrict access to checkout, account info, and order history page unless you are a valid user
 
 <br>**Registered User**
 
-- Checkout page consists of a form containing validators, stopping the user from placing a order unless the entire form is valid
+- The Checkout page consists of a form containing validators, stopping the user from placing an order unless the checkout form is valid
 
-- Account info page displays the basic user information when signed up from Okta Sign-In Widget
+- The account info page displays the basic user information when signed up from Okta Sign-In Widget
 
-- Order history page displays a list of valid orders made in descending order
-  - A alert message appears if no orders were made
+- The order history page displays the valid orders made in descending order
+  - An alert message appears if no orders are associated with the customer
 
 ## How to login to the web application
 
 - Either use an existing account or create a new account through Okta Sign-In Widget used by the web application
 
-- A dummy account for testing with orders already placed is provided below: 
+- Use the following dummy account credentials to test the registered user features:
   - `Username: thomas@gmail.com`
   - `Password: testcase`
-## How to run web application locally on your machine
-
-- Before downloading this project, must sure your system has JRE 8 or higher installed
-
-- Download the Ecommerce project repository by your preferred means
-
-- Open your preferred OS terminal and head to folder containing the jar file
-
-- Run the command `java -jar eCommerce.jar` and wait for jar to finish executing
-
-- Visit https://localhost:8443 to access the eCommerce web application
-
-- If a `Warning: Potential Security Risk Ahead` message appears, then click Advanced and Accept the Risk and Continue
-  - *Note: The reason why a warning message appears is because the app's ssl certificate is self-signed and generated using Java Keytool*
