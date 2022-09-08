@@ -4,6 +4,8 @@
 CREATE SCHEMA eCommerce;
 USE eCommerce;
 
+CREATE USER 'root'@'%' IDENTIFIED BY 'password';
+GRANT ALL ON *.* to 'root'@'%';
 -- -----------------------------------------------------
 -- Table ecommerce.product_category
 -- -----------------------------------------------------

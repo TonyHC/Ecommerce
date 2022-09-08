@@ -1,6 +1,6 @@
 services:
   mysql:
-    build: ./database
+    build: ./docker/database
     container_name: mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
     environment:
