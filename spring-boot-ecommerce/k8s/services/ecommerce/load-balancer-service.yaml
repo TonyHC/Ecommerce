@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-load-balancer-service
+spec:
+  selector:
+    component: ecommerce
+  ports:
+    - port: 8443
+      targetPort: 8443
+  type: LoadBalancer

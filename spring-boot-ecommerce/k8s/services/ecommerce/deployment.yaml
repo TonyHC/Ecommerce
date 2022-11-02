@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: ecommerce
+    spec:
+      containers:
+        - name: ecommerce-deployment
+          image: tchao98/ecommerce
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+          ports:
+            - containerPort: 8443
+  selector:
+    matchLabels:
+      component: ecommerce
