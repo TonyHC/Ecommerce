@@ -93,6 +93,40 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:11@sha256:183f2145827fae2273835472cc40a8df30b75b9d8d1ce522ebd4723844cfec7d</image>
+                        <platforms>
+                            <platform>
+                                <architecture>arm64</architecture>
+                                <os>linux</os>
+                            </platform>
+                            <platform>
+                                <architecture>amd64</architecture>
+                                <os>linux</os>
+                            </platform>
+                        </platforms>
+                    </from>
+                    <to>
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                        <image>tchao98/${project.artifactId}:${project.version}</image>
+                    </to>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -104,36 +138,6 @@
                     <plugin>
                         <groupId>com.google.cloud.tools</groupId>
                         <artifactId>jib-maven-plugin</artifactId>
-                        <version>3.2.1</version>
-                        <configuration>
-                            <from>
-                                <image>eclipse-temurin:11@sha256:183f2145827fae2273835472cc40a8df30b75b9d8d1ce522ebd4723844cfec7d</image>
-                                <platforms>
-                                    <platform>
-                                        <architecture>arm64</architecture>
-                                        <os>linux</os>
-                                    </platform>
-                                    <platform>
-                                        <architecture>amd64</architecture>
-                                        <os>linux</os>
-                                    </platform>
-                                </platforms>
-                            </from>
-                            <to>
-                                <tags>
-                                    <tag>latest</tag>
-                                </tags>
-                                <image>tchao98/${project.artifactId}:${project.version}</image>
-                            </to>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>

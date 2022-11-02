@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/bootstrap/mysql/*
+      - ./k8s/services/ecommerce/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: tchao98/ecommerce
+      context: .
+      jib:
+        project: com.springboot:ecommerce
