@@ -1,0 +1,41 @@
+name: eCommerce CI/CD with Docker, Jib, and Maven
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  upload-image-to-Docker-Hub:
+    runs-on: ubuntu-latest
+    services:
+      ecommerce-mysql:
+        image: tchao98/ecommerce-mysql
+        ports:
+          - 3308:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Copy and Remove files and directories
+        run: |
+          rm README.md
+          rm -r angular-ecommerce
+          cp -r spring-boot-ecommerce/** .
+          rm -r spring-boot-ecommerce
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build with Maven and push image using Jib to Dockerhub
+        run: mvn -B clean install -P build-docker-image --file pom.xml
