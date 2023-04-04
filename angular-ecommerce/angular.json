@@ -17,6 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "clipboard",
+              "cross-fetch",
+              "detect-node",
+              "parse-ms",
+              "p-cancelable",
+              "q",
+              "@sindresorhus/to-milliseconds",
+              "tiny-emitter"
+            ],
             "outputPath": "./static",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -106,6 +116,5 @@
         }
       }
     }
-  },
-  "defaultProject": "eCommerce-angular"
+  }
 }

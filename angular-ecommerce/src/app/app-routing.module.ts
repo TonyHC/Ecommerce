@@ -10,19 +10,19 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ShoppingCartDetailsComponent } from './components/shopping-cart-details/shopping-cart-details.component';
 
 const routes: Routes = [
-  {path: 'login/callback', component: OktaCallbackComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard]},
-  {path: 'shopping-cart', component: ShoppingCartDetailsComponent},
-  {path: 'products/:id', component: ProductDetailsComponent},
-  {path: 'search/:keyword', component: ProductListComponent},
-  {path: 'category/:id', component: ProductListComponent},
-  {path: 'category', component: ProductListComponent},
-  {path: 'products', component: ProductListComponent},
-  {path: 'account', component: AccountInfoComponent, canActivate: [OktaAuthGuard]},
-  {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard]},
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
-  {path: '**', redirectTo: '/products', pathMatch: 'full'}
+  { path: 'login/callback', component: OktaCallbackComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard] },
+  { path: 'shopping-cart', component: ShoppingCartDetailsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'search/:keyword', component: ProductListComponent },
+  { path: 'category/:id', component: ProductListComponent },
+  { path: 'category', component: ProductListComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: 'account', component: AccountInfoComponent, canActivate: [OktaAuthGuard] },
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard] },
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products', pathMatch: 'full' }
 ];
 
 @NgModule({

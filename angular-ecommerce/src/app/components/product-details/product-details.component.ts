@@ -12,7 +12,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-  product!: Product;
+  product: Product = new Product();
   currentProductQuantity: number = 0;
   options: any[] = [];
 

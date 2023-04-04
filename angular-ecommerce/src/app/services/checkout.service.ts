@@ -10,9 +10,7 @@ import { Purchase } from '../models/purchase';
 export class CheckoutService {
   private purchaseUrl = environment.ecommerceApiUrl + '/checkout/purchase';
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   placeOrder(purchase: Purchase): Observable<any> {
     return this.http.post<Purchase>(this.purchaseUrl, purchase);

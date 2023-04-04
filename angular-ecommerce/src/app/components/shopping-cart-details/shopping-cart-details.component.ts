@@ -20,7 +20,9 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
   shoppingCartStatusSubscription!: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService,
-    private router: Router) {}
+    private router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.listShoppingCartDetails();
@@ -30,11 +32,11 @@ export class ShoppingCartDetailsComponent implements OnInit, OnDestroy {
     this.shoppingCartItems = this.shoppingCartService.shoppingCartItems;
 
     this.totalPriceSubscription = this.shoppingCartService.totalPrice.subscribe(
-      (responseData) => (this.totalPrice = responseData)
+      responseData => this.totalPrice = responseData
     );
 
     this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(
-      (responseData) => (this.totalQuantity = responseData)
+      responseData => this.totalQuantity = responseData
     );
 
     this.shoppingCartStatusSubscription = this.shoppingCartService.shoppingCartStatus.subscribe(

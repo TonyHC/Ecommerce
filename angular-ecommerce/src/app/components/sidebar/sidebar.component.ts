@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  productCategories!: ProductCategory[];
+  productCategories: ProductCategory[] = [];
   currentYear: number = new Date().getFullYear();
   isAuthenticated: boolean = false;
   storage: Storage = sessionStorage;
@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   listProductCategories() {
     this.productSubscription = this.productService.fetchProductCategories().subscribe(
       responseData => {
-        this.productCategories = responseData
+        this.productCategories = responseData;
       }
     );
   }

@@ -1,5 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { OKTA_AUTH } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { from, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -8,10 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
-
-  constructor(private oktaAuth: OktaAuth) {
-
-  }
+  constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Only add access token for secured endpoints

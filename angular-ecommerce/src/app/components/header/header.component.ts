@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OktaAuthStateService } from '@okta/okta-angular';
+import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Observable, OperatorFunction, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   productNames: string[] = [];
 
-  userName: string = '';
+  userName!: string;
   isAuthenticated: boolean = false;
   storage: Storage = sessionStorage;
 
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private shoppingCartService: ShoppingCartService,
     private productService: ProductService,
     private authStateService: OktaAuthStateService,
-    private oktaAuth: OktaAuth) {
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
 
   }
 
@@ -87,9 +87,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         : this.productNames.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
 
-  logout() {
+  async logout() {
     // Termintaes the session with okta and removes current tokens
-    this.oktaAuth.signOut();
+    await this.oktaAuth.signOut();
   }
 
   ngOnDestroy(): void {

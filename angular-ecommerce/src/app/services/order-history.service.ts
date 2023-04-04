@@ -17,9 +17,7 @@ export interface orderHistoryResponse {
 export class OrderHistoryService {
   private ordersUrl = environment.ecommerceApiUrl + '/orders';
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   fetchOrderHistory(userEmail: string): Observable < OrderHistory[] > {
     return this.http.get<orderHistoryResponse>(`${this.ordersUrl}/search/findByCustomerEmailOrderByDateCreatedDesc`, {

@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { OktaAuth, Tokens } from '@okta/okta-auth-js';
-import * as OktaSignIn from '@okta/okta-signin-widget';
+import { OKTA_AUTH } from '@okta/okta-angular';
+import OktaSignIn from '@okta/okta-signin-widget';
 import AppConfig from '../../app.config';
 
 const DEFAULT_ORIGINAL_URI = window.location.origin;
@@ -13,7 +14,7 @@ const DEFAULT_ORIGINAL_URI = window.location.origin;
 export class LoginComponent implements OnInit, OnDestroy {
   signIn: any;
 
-  constructor(private oktaAuth: OktaAuth) {
+  constructor(@Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
     this.signIn = new OktaSignIn({
       logo: 'assets/images/logo.png',
       features: {

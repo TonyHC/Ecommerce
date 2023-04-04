@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  products!: Product[];
+  products: Product[] = [];
   currentCategoryId: number = 1;
   previousCategoryId: number = 1;
   currentCategoryName!: string;
@@ -134,11 +134,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      if (this.searchProductSubscription) {
-        this.searchProductSubscription.unsubscribe;
-      } else {
-        this.productSubscription.unsubscribe();
-        this.productCategorySubscription.unsubscribe();
-      }
+    if (this.searchProductSubscription) {
+      this.searchProductSubscription.unsubscribe;
+    } else {
+      this.productSubscription.unsubscribe();
+      this.productCategorySubscription.unsubscribe();
+    }
   }
 }

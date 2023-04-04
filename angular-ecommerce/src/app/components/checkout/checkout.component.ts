@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country';
@@ -18,7 +18,7 @@ import { notOnlyWhiteSpace } from 'src/app/shared/validators/forbidden-whitespac
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
-  checkoutFormGroup!: FormGroup;
+  checkoutFormGroup!: UntypedFormGroup;
   storage: Storage = sessionStorage;
 
   totalPrice: number = 0;
@@ -40,7 +40,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   stateSubscription!: Subscription;
   placeOrderSubscription!: Subscription;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private checkoutFormService: CheckoutFormService,
     private shoppingCartService: ShoppingCartService,
     private checkoutService: CheckoutService,
@@ -56,8 +56,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   reviewShoppingCartDetails() {
-    this.totalPriceSubscription = this.shoppingCartService.totalPrice.subscribe(responseData => this.totalPrice = responseData)
-    this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(responseData =>this.totalQuantity = responseData)
+    this.totalPriceSubscription = this.shoppingCartService.totalPrice.subscribe(
+      responseData => this.totalPrice = responseData
+    );
+
+    this.totalQuantitySubscription = this.shoppingCartService.totalQuantity.subscribe(
+      responseData =>this.totalQuantity = responseData
+    );
   }
 
   initCheckoutForm() {
@@ -65,31 +70,31 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl(userName[0], [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        lastName: new FormControl(userName[1], [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        email: new FormControl(JSON.parse(this.storage.getItem('userEmail')!), [
+        firstName: new UntypedFormControl(userName[0], [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        lastName: new UntypedFormControl(userName[1], [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        email: new UntypedFormControl(JSON.parse(this.storage.getItem('userEmail')!), [
           Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,4}$')
         ])
       }),
       shippingAddress: this.formBuilder.group({
-        street: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        city: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        state: new FormControl('', Validators.required),
-        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        country: new FormControl('', Validators.required)
+        street: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        city: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        state: new UntypedFormControl('', Validators.required),
+        zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        country: new UntypedFormControl('', Validators.required)
       }),
       billingAddress: this.formBuilder.group({
-        street: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        city: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        state: new FormControl('', Validators.required),
-        zipCode: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        country: new FormControl('', Validators.required)
+        street: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        city: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        state: new UntypedFormControl('', Validators.required),
+        zipCode: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        country: new UntypedFormControl('', Validators.required)
       }),
       creditCard: this.formBuilder.group({
-        cardType: new FormControl('', Validators.required),
-        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
-        cardNumber: new FormControl('', [Validators.required]),
-        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
+        cardType: new UntypedFormControl('', Validators.required),
+        nameOnCard: new UntypedFormControl('', [Validators.required, Validators.minLength(2), notOnlyWhiteSpace()]),
+        cardNumber: new UntypedFormControl('', [Validators.required]),
+        securityCode: new UntypedFormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
       })
@@ -106,7 +111,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const shoppingCartItems = this.shoppingCartService.shoppingCartItems;
 
     // Convert shoppingCartItem array into orderItems array
-    let orderItems: OrderItem[] = shoppingCartItems.map(shoppingCartItem => new OrderItem(shoppingCartItem));
+    let orderItems: OrderItem[] = shoppingCartItems.map(
+      shoppingCartItem => new OrderItem(shoppingCartItem)
+    );
 
     // Initialize Purchase
     let purchase = new Purchase();
@@ -177,10 +184,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   populateMonthsAndYears() {
     const currentMonth = new Date().getMonth() + 1;
 
-    this.creditCardMonthSubscription =
-      this.checkoutFormService.getCreditCardMonths(currentMonth).subscribe(responseData => this.creditCardMonths = responseData);
-    this.creditCardYearSubscription =
-      this.checkoutFormService.getCreditCardYears().subscribe(responseData => this.creditCardYears = responseData);
+    this.creditCardMonthSubscription = this.checkoutFormService.getCreditCardMonths(currentMonth).subscribe(
+      responseData => this.creditCardMonths = responseData
+    );
+
+    this.creditCardYearSubscription = this.checkoutFormService.getCreditCardYears().subscribe(
+      responseData => this.creditCardYears = responseData
+    );
   }
 
   onHandleMonthsAndYears() {
@@ -190,12 +200,15 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     let startMonth: number;
     currentYear === selectedYear ? startMonth = new Date().getMonth() + 1 : startMonth = 1;
 
-    this.creditCardMonthSubscription =
-      this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(responseData => this.creditCardMonths = responseData);
+    this.creditCardMonthSubscription = this.checkoutFormService.getCreditCardMonths(startMonth).subscribe(
+      responseData => this.creditCardMonths = responseData
+    );
   }
 
   populateCountries() {
-    this.countrySubscroption = this.checkoutFormService.getCountries().subscribe(responseData => this.countries = responseData);
+    this.countrySubscroption = this.checkoutFormService.getCountries().subscribe(
+      responseData => this.countries = responseData
+    );
   }
 
   onPopulateStates(formGroupName: string) {
@@ -205,7 +218,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         formGroupName === 'shippingAddress' ?
           this.shippingAddressStates = responseData : this.billingAddressStates = responseData;
 
-        this.checkoutFormGroup.controls[formGroupName].patchValue({state: responseData[0]});
+        this.checkoutFormGroup.controls[formGroupName].patchValue(
+          {state: responseData[0]}
+        );
       }
     )
   }
