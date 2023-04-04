@@ -15,7 +15,7 @@ services:
       - mysql
     restart: always
   phpmyadmin:
-    image: phpmyadmin:latest
+    image: phpmyadmin:5.2.0
     container_name: phpmyadmin-mysql
     environment:
       PMA_HOST: mysql
