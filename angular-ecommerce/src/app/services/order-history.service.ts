@@ -19,7 +19,7 @@ export class OrderHistoryService {
 
   constructor(private http: HttpClient) {}
 
-  fetchOrderHistory(userEmail: string): Observable < OrderHistory[] > {
+  fetchOrderHistory(userEmail: string): Observable <OrderHistory[]> {
     return this.http.get<orderHistoryResponse>(`${this.ordersUrl}/search/findByCustomerEmailOrderByDateCreatedDesc`, {
         params: new HttpParams().set('email', userEmail)
       })

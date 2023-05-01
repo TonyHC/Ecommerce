@@ -34,6 +34,10 @@ a {
   font-weight: bold;
 }
 
+.nav-link:active {
+  background-color: rgb(188, 207, 243);
+}
+
 .nav-link {
   transition: all 0.3s
 }

@@ -1,6 +1,6 @@
 <div class="checkout-form-position">
   <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
-    <!--Customer Form Group-->
+    <!-- Customer Form Group -->
     <div formGroupName="customer" class="form-area">
       <h4 class="form-heading">Customer</h4> <hr/>
 
@@ -9,7 +9,7 @@
           <label class="form-label mt-3">First Name</label>
           <input formControlName="firstName" class="form-control" type="text"/>
 
-          <div *ngIf="customerFirstName.invalid && (customerFirstName.dirty || customerFirstName.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="customerFirstName.invalid && (customerFirstName.touched)" class="alert alert-danger mt-2">
             <div *ngIf="customerFirstName.errors?.['required'] || customerFirstName.errors?.['notOnlyWhiteSpace']">
               First name is required
             </div>
@@ -22,7 +22,7 @@
           <label class="form-label mt-3">Last Name</label>
           <input formControlName="lastName" class="form-control" type="text"/>
 
-          <div *ngIf="customerLastName.invalid && (customerLastName.dirty || customerLastName.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="customerLastName.invalid && (customerLastName.touched)" class="alert alert-danger mt-2">
             <div *ngIf="customerLastName.errors?.['required'] || customerLastName.errors?.['notOnlyWhiteSpace']">
               Last name is required
             </div>
@@ -36,7 +36,7 @@
       <label class="form-label mt-3">Email</label>
       <input formControlName="email" class="form-control" type="text"/>
 
-      <div *ngIf="customerEmail.invalid && (customerEmail.dirty || customerEmail.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="customerEmail.invalid && (customerEmail.touched)" class="alert alert-danger mt-2">
         <div *ngIf="customerEmail.errors?.['required']">
           Email is required
         </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <!--Shipping Address Form Group-->
+    <!-- Shipping Address Form Group -->
     <div formGroupName="shippingAddress" class="form-area">
       <h4 class="form-heading">Shipping Address</h4> <hr/>
 
@@ -60,7 +60,7 @@
         </option>
       </select>
 
-      <div *ngIf="shippingAddressCountry.invalid && (shippingAddressCountry.dirty || shippingAddressCountry.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="shippingAddressCountry.invalid && (shippingAddressCountry.touched)" class="alert alert-danger mt-2">
         <div *ngIf="shippingAddressCountry.errors?.['required']">
           Country is required
         </div>
@@ -69,7 +69,7 @@
       <label class="form-label mt-3">Street</label>
       <input formControlName="street" class="form-control" type="text"/>
 
-      <div *ngIf="shippingAddressStreet.invalid && (shippingAddressStreet.dirty || shippingAddressStreet.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="shippingAddressStreet.invalid && (shippingAddressStreet.touched)" class="alert alert-danger mt-2">
         <div *ngIf="shippingAddressStreet.errors?.['required'] || shippingAddressStreet.errors?.['notOnlyWhiteSpace']">
           Street is required
         </div>
@@ -83,7 +83,7 @@
           <label class="form-label mt-3">City</label>
           <input formControlName="city" class="form-control" type="text"/>
 
-          <div *ngIf="shippingAddressCity.invalid && (shippingAddressCity.dirty || shippingAddressCity.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="shippingAddressCity.invalid && (shippingAddressCity.touched)" class="alert alert-danger mt-2">
             <div *ngIf="shippingAddressCity.errors?.['required'] || shippingAddressCity.errors?.['notOnlyWhiteSpace']">
               City is required
             </div>
@@ -103,7 +103,7 @@
             </option>
           </select>
 
-          <div *ngIf="shippingAddressState.invalid && (shippingAddressState.dirty || shippingAddressState.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="shippingAddressState.invalid && (shippingAddressState.touched)" class="alert alert-danger mt-2">
             <div *ngIf="shippingAddressState.errors?.['required']">
               State is required
             </div>
@@ -114,7 +114,7 @@
           <label class="form-label mt-3">Zip Code</label>
           <input formControlName="zipCode" class="form-control" type="text"/>
 
-          <div *ngIf="shippingAddressZipCode.invalid && (shippingAddressZipCode.dirty || shippingAddressZipCode.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="shippingAddressZipCode.invalid && (shippingAddressZipCode.touched)" class="alert alert-danger mt-2">
             <div *ngIf="shippingAddressZipCode.errors?.['required'] || shippingAddressZipCode.errors?.['notOnlyWhiteSpace']">
               Zip code is required
             </div>
@@ -126,7 +126,7 @@
       </div>
     </div>
 
-    <!--Billing Address Form Group-->
+    <!-- Billing Address Form Group -->
     <div formGroupName="billingAddress" class="form-area">
       <h4 class="form-heading">Billing Address</h4>
 
@@ -144,7 +144,7 @@
         </option>
       </select>
 
-      <div *ngIf="billingAddressCountry.invalid && (billingAddressCountry.dirty || billingAddressCountry.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="billingAddressCountry.invalid && (billingAddressCountry.touched)" class="alert alert-danger mt-2">
         <div *ngIf="billingAddressCountry.errors?.['required']">
           Country is required
         </div>
@@ -153,7 +153,7 @@
       <label class="form-label mt-3">Street</label>
       <input formControlName="street" class="form-control" type="text" />
 
-      <div *ngIf="billingAddressStreet.invalid && (billingAddressStreet.dirty || billingAddressStreet.touched)" class="alert alert-danger mt-2">
+      <div *ngIf="billingAddressStreet.invalid && (billingAddressStreet.touched)" class="alert alert-danger mt-2">
         <div *ngIf="billingAddressStreet.errors?.['required'] || billingAddressStreet.errors?.['notOnlyWhiteSpace']">
           Street is required
         </div>
@@ -167,7 +167,7 @@
           <label class="form-label mt-3">City</label>
           <input formControlName="city" class="form-control" type="text"/>
 
-          <div *ngIf="billingAddressCity.invalid && (billingAddressCity.dirty || billingAddressCity.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="billingAddressCity.invalid && (billingAddressCity.touched)" class="alert alert-danger mt-2">
             <div *ngIf="billingAddressCity.errors?.['required'] || billingAddressCity.errors?.['notOnlyWhiteSpace']">
               City is required
             </div>
@@ -187,7 +187,7 @@
             </option>
           </select>
 
-          <div *ngIf="billingAddressState.invalid && (billingAddressState.dirty || billingAddressState.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="billingAddressState.invalid && (billingAddressState.touched)" class="alert alert-danger mt-2">
             <div *ngIf="billingAddressState.errors?.['required']">
               State is required
             </div>
@@ -198,7 +198,7 @@
           <label class="form-label mt-3">Zip Code</label>
           <input formControlName="zipCode" class="form-control" type="text"/>
 
-          <div *ngIf="billingAddressZipCode.invalid && (billingAddressZipCode.dirty || billingAddressZipCode.touched)" class="alert alert-danger mt-2">
+          <div *ngIf="billingAddressZipCode.invalid && (billingAddressZipCode.touched)" class="alert alert-danger mt-2">
             <div *ngIf="billingAddressZipCode.errors?.['required'] || billingAddressZipCode.errors?.['notOnlyWhiteSpace']">
               Zip code is required
             </div>
@@ -210,108 +210,26 @@
       </div>
     </div>
 
-    <!--Credit Card Form Group-->
+    <!-- Stripe Elements Credit Card Section -->
     <div formGroupName="creditCard" class="form-area">
-      <h4 class="form-heading">Credit Card</h4> <hr/>
+      <h4 class="form-heading">Credit or Debit Card</h4>
 
-      <div class="row g-5 align-items-center">
-        <div class="col-8">
-          <label class="form-label mt-3">Card Number</label>
-          <input
-            formControlName="cardNumber"
-            class="form-control"
-            type="text"
-            #cardNumber
-            (input)="onValidCardNumber(cardNumber.value)"/>
-
-            <div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched)" class="alert alert-danger mt-2">
-              <div *ngIf="creditCardNumber.errors?.['required']">
-                Card number is required
-              </div>
-            </div>
-
-            <div *ngIf="!validCardNumber && (creditCardNumber.dirty || creditCardNumber.touched)" class="alert alert-danger mt-2">
-              Card number must be valid
-            </div>
-        </div>
-
-        <div class="col-4">
-          <label class="form-label mt-3">Card Type</label>
-          <select formControlName="cardType" class="form-select">
-            <option>Master Card</option>
-            <option>Visa</option>
-          </select>
-
-          <div *ngIf="creditCardCardType.invalid && (creditCardCardType.dirty || creditCardCardType.touched)" class="alert alert-danger mt-2">
-            <div *ngIf="creditCardCardType.errors?.['required']">
-              Card type is required
-            </div>
-          </div>
-        </div>
+      <div id="card-element" class="form-control">
+        <!-- A Stripe Element will be inserted here. -->
       </div>
 
-      <div class="row g-5 align-items-center">
-        <div class="col-8">
-          <label class="form-label mt-3">Name</label>
-          <input formControlName="nameOnCard" class="form-control" type="text"/>
-
-            <div *ngIf="creditCardNameOnCard.invalid && (creditCardNameOnCard.dirty || creditCardNameOnCard.touched)" class="alert alert-danger mt-2">
-              <div *ngIf="creditCardNameOnCard.errors?.['required'] || creditCardNameOnCard.errors?.['notOnlyWhiteSpace']">
-                Name on card is required
-              </div>
-              <div *ngIf="creditCardNameOnCard.errors?.['minlength']">
-                Name on card must be at least 2 characters long
-              </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-          <label class="form-label mt-3">Security Code</label>
-          <input
-            formControlName="securityCode" class="form-control" type="text"/>
-
-            <div *ngIf="creditCardSecurityCode.invalid && (creditCardSecurityCode.dirty || creditCardSecurityCode.touched)" class="alert alert-danger mt-2">
-              <div *ngIf="creditCardSecurityCode.errors?.['required']">
-                Security code is required
-              </div>
-              <div *ngIf="creditCardSecurityCode.errors?.['pattern']">
-                Security code must be 3 digits long
-              </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="row g-5 align-items-center">
-        <div class="col-6">
-          <label class="form-label mt-3">Expiration Month</label>
-          <select formControlName="expirationMonth" class="form-select">
-            <option *ngFor="let currentMonth of creditCardMonths">
-              {{ currentMonth }}
-            </option>
-          </select>
-        </div>
-
-        <div class="col-6">
-          <label class="form-label mt-3">Expiration Year</label>
-          <select
-            formControlName="expirationYear"
-            class="form-select"
-            (change)="onHandleMonthsAndYears()">
-            <option *ngFor="let currentYear of creditCardYears">
-              {{ currentYear }}
-            </option>
-          </select>
-        </div>
-      </div>
+      <!-- Used to display form errors -->
+      <div id="card-errors" [ngClass]="{'alert alert-danger mt-3' : displayError.textContent}"></div>
     </div>
 
+    <!-- Order Details -->
     <div class="form-area mb-5">
       <h4 class="form-heading">Review Your Order</h4> <hr/>
 
       <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
       <p>Total Price: <strong>{{ totalPrice | currency: 'USD'}}</strong></p>
 
-      <!--Submit Button-->
+      <!-- Submit Button -->
       <button type="submit" class="btn btn-primary mt-3" [disabled]="!checkoutFormGroup.valid">
         Confirm Purchase
       </button>
