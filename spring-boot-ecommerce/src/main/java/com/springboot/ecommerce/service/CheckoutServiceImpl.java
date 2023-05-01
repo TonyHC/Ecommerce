@@ -1,5 +1,6 @@
 package com.springboot.ecommerce.service;
 
+import com.springboot.ecommerce.dto.PaymentInfo;
 import com.springboot.ecommerce.entity.Customer;
 import com.springboot.ecommerce.entity.Order;
 import com.springboot.ecommerce.entity.OrderItem;
@@ -9,11 +10,14 @@ import com.springboot.ecommerce.dto.Purchase;
 import com.springboot.ecommerce.dto.PurchaseResponse;
 import com.springboot.ecommerce.repository.OrderRepository;
 import com.springboot.ecommerce.repository.ProductRepository;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
@@ -21,10 +25,14 @@ public class CheckoutServiceImpl implements CheckoutService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
-    public CheckoutServiceImpl(CustomerRepository customerRepository, OrderRepository orderRepository, ProductRepository productRepository) {
+    public CheckoutServiceImpl(CustomerRepository customerRepository, OrderRepository orderRepository,
+                               ProductRepository productRepository, @Value("${stripe.key.secret}") String stripeSecretKey) {
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
+
+        // Initialize Stripe API with secret key
+        Stripe.apiKey = stripeSecretKey;
     }
 
     @Override
@@ -67,6 +75,26 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // Return a purchase response dto containing the unique uuid for order tracking number
         return new PurchaseResponse(orderTrackingNumber);
+    }
+
+    @Override
+    public PaymentIntent createPaymentIntent(PaymentInfo paymentInfo) throws StripeException {
+        // Specify the allowed payment methods used by the PaymentIntent
+        List<String> paymentMethodTypes = new ArrayList<>();
+
+        paymentMethodTypes.add("card");
+
+        // Specify the parameters for the PaymentIntent
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("amount", paymentInfo.getAmount());
+        params.put("currency", paymentInfo.getCurrency());
+        params.put("receipt_email", paymentInfo.getReceiptEmail());
+        params.put("payment_method_types", paymentMethodTypes);
+        params.put("description", "Ecom purchase");
+
+        // Create and return a PaymentIntent object using the above parameters
+        return PaymentIntent.create(params);
     }
 
     private String generateOrderTrackingNumber() {
