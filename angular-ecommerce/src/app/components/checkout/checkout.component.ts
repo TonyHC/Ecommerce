@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
+  onSubmit(submitBtn : HTMLButtonElement) {
     // Setup order
     let order = new Order();
     order.totalPrice = this.totalPrice;
@@ -173,6 +173,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
      *    Place Order
      */
     if (!this.checkoutFormGroup.invalid && this.displayError.textContent == "") {
+      submitBtn.disabled = true;
+
       this.createPaymentIntentSubscription = this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe((paymentIntentResponse) => {
         this.stripe.confirmCardPayment(paymentIntentResponse.client_secret, {
           payment_method: {
@@ -194,15 +196,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }).then((result: any) => {
           if (result.error) {
             console.log("Error: " + result.error.message);
+            submitBtn.disabled = false;
           } else {
             this.placeOrderSubscription = this.checkoutService.placeOrder(purchase).subscribe({
               next: responseData => {
                 console.log("Order tracking number: " + JSON.stringify(responseData.orderTrackingNumber));
+                submitBtn.disabled = false;
 
                 // Reset the shopping cart
                 this.resetShoppingCart();
               }, error: (error: any) => {
                 console.log("Error: " + error.message);
+                submitBtn.disabled = false;
               }
             })
           }
