@@ -2,11 +2,11 @@
   <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit(submitBtn)">
     <!-- Customer Form Group -->
     <div formGroupName="customer" class="form-area">
-      <h4 class="form-heading">Customer</h4> <hr/>
+      <h4 class="form-heading mb-4">Customer</h4>
 
       <div class="row g-5 align-items-center">
         <div class="col-6">
-          <label class="form-label mt-3">First Name</label>
+          <label class="form-label">First Name</label>
           <input formControlName="firstName" class="form-control" type="text"/>
 
           <div *ngIf="customerFirstName.invalid && (customerFirstName.touched)" class="alert alert-danger mt-2">
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="col-6">
-          <label class="form-label mt-3">Last Name</label>
+          <label class="form-label">Last Name</label>
           <input formControlName="lastName" class="form-control" type="text"/>
 
           <div *ngIf="customerLastName.invalid && (customerLastName.touched)" class="alert alert-danger mt-2">
@@ -48,9 +48,9 @@
 
     <!-- Shipping Address Form Group -->
     <div formGroupName="shippingAddress" class="form-area">
-      <h4 class="form-heading">Shipping Address</h4> <hr/>
+      <h4 class="form-heading mb-4">Shipping Address</h4>
 
-      <label class="form-label mt-3">Country</label>
+      <label class="form-label">Country</label>
       <select
         formControlName="country"
         class="form-select"
@@ -129,12 +129,12 @@
     <!-- Billing Address Form Group -->
     <div formGroupName="billingAddress" class="form-area">
       <h4 class="form-heading">Billing Address</h4>
+      <div class="mb-4">
+        <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)"/>
+        <span> Same as shipping address</span>
+      </div>
 
-      <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)"/>
-
-      <span> Same as shipping address</span> <hr/>
-
-      <label class="form-label mt-3">Country</label>
+      <label class="form-label">Country</label>
       <select
         formControlName="country"
         class="form-select"
@@ -212,7 +212,7 @@
 
     <!-- Stripe Elements Credit Card Section -->
     <div formGroupName="creditCard" class="form-area">
-      <h4 class="form-heading">Credit or Debit Card</h4>
+      <h4 class="form-heading mb-3">Credit or Debit Card</h4>
 
       <div id="card-element" class="form-control">
         <!-- A Stripe Element will be inserted here. -->
@@ -224,7 +224,7 @@
 
     <!-- Order Details -->
     <div class="form-area mb-5">
-      <h4 class="form-heading">Review Your Order</h4> <hr/>
+      <h4 class="form-heading mb-3">Review Your Order</h4>
 
       <p>Total Quantity: <strong>{{ totalQuantity }}</strong></p>
       <p>Total Price: <strong>{{ totalPrice | currency: 'USD'}}</strong></p>

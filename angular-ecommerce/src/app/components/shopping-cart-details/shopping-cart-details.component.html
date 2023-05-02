@@ -36,12 +36,14 @@
           </td>
           <td class="detail-price-align">
             <div class="d-flex justify-content-end mt-4">
-              <i class="bi bi-plus-square-fill" (click)="onIncrementItemQuantity(shoppingCartItem)"></i>
+              <i class="bi bi-plus-square-fill cursor-pointer" (click)="onIncrementItemQuantity(shoppingCartItem)"></i>
               <p class="item-quantity-margin">Quantity: {{shoppingCartItem.quantity}}</p>
-              <i class="bi bi-dash-square-fill" (click)="onDecrementItemQuantity(shoppingCartItem)"></i>
+              <i class="bi bi-dash-square-fill cursor-pointer" (click)="onDecrementItemQuantity(shoppingCartItem)"></i>
             </div>
 
-            <p class="subtotal-margin">Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | currency: 'USD'}}</strong></p>
+            <p class="subtotal-margin">
+              Subtotal: <strong>{{shoppingCartItem.quantity * shoppingCartItem.unitPrice | currency: 'USD'}}</strong>
+            </p>
           </td>
         </tr>
 

@@ -11,10 +11,6 @@ table {
   margin-top: 5px;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .detail-price-align {
   text-align: end;
 }

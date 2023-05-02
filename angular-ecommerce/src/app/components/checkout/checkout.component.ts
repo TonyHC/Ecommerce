@@ -200,7 +200,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           } else {
             this.placeOrderSubscription = this.checkoutService.placeOrder(purchase).subscribe({
               next: responseData => {
-                console.log("Order tracking number: " + JSON.stringify(responseData.orderTrackingNumber));
+                const jsonResponse = JSON.stringify(responseData.orderTrackingNumber).replace(/['"]+/g, '');
+                this.checkoutService.orderTrackingNumberNotification.next(jsonResponse);
                 submitBtn.disabled = false;
 
                 // Reset the shopping cart
