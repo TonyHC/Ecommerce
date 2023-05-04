@@ -54,7 +54,7 @@
       <div class="d-flex flex-row">
         <img src="{{ orderItem.imageUrl }}" class="order-item-image" routerLink="/products/{{ orderItem.productId }}"/>
         <div class="d-flex flex-column ms-3">
-          <h6 class="mt-3" routerLink="/products/{{ orderItem.productId }}">
+          <h6 class="mt-3 cursor-pointer" routerLink="/products/{{ orderItem.productId }}">
             {{ orderItem.name }}
           </h6>
           <p>Quantity: {{ orderItem.quantity }}</p>
@@ -63,4 +63,30 @@
       </div>
     </li>
   </ul>
+</div>
+
+<div class="notificaiton position-fixed bottom-0 end-0 p-3">
+  <ngb-toast
+	*ngIf="show"
+  [ngClass]="{'bg-light' : show}"
+	header="Order Tracking Number"
+	[delay]="5000"
+  >
+    <ng-template ngbToastHeader>
+      <div class="me-auto">
+        <i class="bi bi-box-seam-fill"></i>
+        <strong class="mx-1">You order has been placed</strong>
+      </div>
+    </ng-template>
+    <!-- Add a copy button and logic to copy the order tracking number to the copyboard of the user -->
+    <div class="row align-items-center justify-content-between">
+      <div class="col-10" id="trackingNum">
+        <strong>Order Tracking Number:</strong> <br/>
+        {{ orderTrackingNumber }}
+      </div>
+      <div class="col-2 d-flex justify-content-end">
+          <i class="bi bi-clipboard-data-fill cursor-pointer justify-content-end" (click)="copyContent()"></i>
+      </div>
+    </div>
+  </ngb-toast>
 </div>

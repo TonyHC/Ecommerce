@@ -14,10 +14,6 @@ a {
   font-size: 24px;
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
 .input-group {
   width: 50%;
 }
@@ -32,6 +28,10 @@ a {
 
 .nav-link:hover {
   font-weight: bold;
+}
+
+.nav-link:active {
+  background-color: rgb(188, 207, 243);
 }
 
 .nav-link {
